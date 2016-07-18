@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Date_내장객체</title>
+
+
+<script>
+
+//	현재 시간 출력하기
+var d = new Date();
+
+document.write(d);
+
+document.write("<br><br><br>");
+
+
+//	현재 요일
+
+var day = d.getDay();
+
+document.write(day);
+
+document.write("<br>");
+
+document.write(d.getUTCDay());
+
+document.write("<br><br><br>");
+
+//	현재 년도를 출력하기
+
+var yy = d.getFullYear();
+
+document.write(yy);
+
+document.write("<br>");
+
+document.write(d.getUTCFullYear());
+
+document.write("<br><br><br>");
+
+//	현재 달 출력하기
+
+var mm = d.getMonth();
+
+document.write(mm);
+
+document.write("<br>");
+
+document.write(d.getUTCMonth());
+
+document.write("<br><br><br>");
+
+
+//	현재 일 출력하기
+
+var dd = d.getDate();
+
+document.write(dd);
+
+document.write("<br>");
+
+document.write(d.getUTCDate());
+
+document.write("<br><br><br>");
+
+
+//	임의의 날짜에 대해서 원하는 정보 추출하기
+var today = new Date("2018-7-16");	//	원하는 날짜 포맷 지정 가능
+
+document.write(today.getDay());
+
+
+
+</script>
+
+
+</head>
+<body>
+
+</body>
+</html>
+
+<!-- -->

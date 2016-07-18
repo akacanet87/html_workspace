@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>스톱워치</title>
+
+<style>
+
+
+#margin1{
+
+	width : 440px;
+	height : 200px;
+
+}
+
+#margin2{
+
+	width : 440px;
+	height : 20px;
+
+}
+
+#margin3{
+
+	width : 440px;
+	height : 50px;
+
+}
+
+#window{
+
+	width : 440px;
+	height : 800px;
+	font-weight : bold;
+	color : white;
+/*	background : black;			*/
+	text-align : center;			/* 내용물에 대한 우측 정렬	*/
+	margin : auto;
+
+}
+
+#time_box{
+
+	width : 240px;
+	height : 50px;
+	font-size : 30pt;
+	margin : auto;
+	text-align : left;
+	font-family : "Poor Richard";
+	background : #cc9933;
+	color : #660000;
+
+}
+
+#lap_time{
+
+	width : 200px;
+	height : 50px;
+	font-size : 20pt;
+	margin : auto;
+	text-align : center;
+	font-family : "Poor Richard";
+	background : #cc9933;
+	color : #660000;
+
+}
+
+#bt_start{
+
+	width : 100px;
+	height : 50px;
+	font-size : 30pt;
+	margin : auto;
+	text-align : center;
+	font-family : "Poor Richard";
+	background : #cc9933;
+	color : #660000;
+
+}
+
+
+#bt_reset{
+
+	width : 100px;
+	height : 50px;
+	font-size : 30pt;
+	margin : auto;
+	text-align : center;
+	font-family : "Poor Richard";
+	background : #cc9933;
+	color : #660000;
+
+}
+
+#bt_lap{
+
+	width : 100px;
+	height : 50px;
+	font-size : 30pt;
+	margin : auto;
+	text-align : center;
+	font-family : "Poor Richard";
+	background : #cc9933;
+	color : #660000;
+
+}
+
+</style>
+
+
+<script>
+
+var ms=0;
+var ss=0;		// 초를 담는 전역변수, 누적되어야 하므로 전역변수로 설정
+var mm=0;
+var hh=0;
+var st;
+var isStart=false;
+
+
+var dms=0;
+var dss=0;
+var dmm=0;
+var dhh=0;
+
+
+var mil=0;
+var sec=0;
+var min=0;
+var hour=0;
+
+var rec=0;
+
+
+//문서가 모두 읽혀졌으므로, 아래의 txt요소를 접근할 수 있는 시점
+function init(){
+
+	document.getElementById("time_box").value="00 : 00' 00'' 00'''";
+
+	document.getElementById("lap_time").value="No Record.";
+
+}
+
+
+function stopWatch(){
+
+	if(!isStart){
+
+		start();
+
+	}else{
+
+		stop();
+
+	}
+
+	isStart=!isStart;
+
+}
+
+
+
+
+
+// txt의 기존값을 증가값으로 대입
+function start(){
+
+
+
+	// ms값이 100이되면 다시 0으로 세팅
+	ms++;
+
+	if(ms==100){
+
+		ms=0;
+		ss++;
+
+	}else{
+
+		ms= ms;
+	
+	}
+
+
+	// ss값이 60이되면 다시 0으로 세팅
+	if(ss==60){
+
+		ss=0;
+		mm++;
+
+	}else{
+
+		ss=ss;
+	
+	}
+
+
+
+	// mm값이 60이되면 다시 0으로 세팅
+	if(mm==100){
+
+		mm=0;
+		hh++
+
+	}else{
+
+		mm=mm;
+	
+	}
+
+
+
+	// hh값이 100이되면 다시 0으로 세팅
+	if(hh==100){
+
+		hh=0;
+
+	}else{
+
+		hh=hh;
+	
+	}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+// 0부터 9까지는 앞에 0을 붙이도록 함
+	if( ms>=0 && ms <=9 ){
+
+		dms = "0"+ms;
+
+	}else{
+
+		dms = ms;
+
+	}
+
+
+
+
+	if( ss>=0 && ss <=9 ){
+
+		dss = "0"+ss;
+
+	}else{
+
+		dss = ss;
+
+	}
+
+
+	if( mm>=0 && mm <=9 ){
+
+		dmm = "0"+mm;
+
+	}else{
+
+		dmm = mm;
+
+	}
+
+
+	if( hh>=0 && hh<=9 ){
+
+		dhh = "0"+hh;
+
+	}else{
+
+		dhh = hh;
+
+	}
+
+	document.getElementById("time_box").value=dhh+" : "+dmm+"' "+dss+"'' "+dms+"'''";
+	
+	
+	st=setTimeout("start()", 10);
+
+
+	document.getElementById("bt_start").value="Stop";
+
+	
+	
+}
+
+
+
+function stop(){
+
+	clearTimeout(st);									// 기존 셋 타임 아웃에 의한 자동 호출을 중지시킴
+	document.getElementById("bt_start").value="Start";
+
+}
+
+
+
+
+
+
+function reset(){
+	
+	clearTimeout(st);									// 기존 셋 타임 아웃에 의한 자동 호출을 중지시킴
+
+	ms=0;
+	ss=0;
+	mm=0;
+	hh=0;
+	rec=0;
+
+
+
+	init();
+
+	isStart=false;
+
+	document.getElementById("bt_start").value="Start";
+
+}
+
+
+function lap(){
+
+	mil=dms;
+	sec=dss;
+	min=dmm;
+	hour=dhh;
+
+	record();
+	rec++;
+
+}
+
+
+
+function record(){
+
+		document.getElementById("lap_time").value=hour+" : "+min+"' "+sec+"'' "+mil+"'''";
+
+}
+
+</script>
+
+
+</head>
+<body onLoad="init()">
+
+<div 	style="background-image : url(../images/antique5.jpg); background-position : 50% 35%; background-repeat :  no-repeat; background-size : 100%"  id="window" width="100%" >
+
+	
+	<div id="margin1">
+	</div>
+	
+	
+	<input type="text" id="time_box" >						<!-- input type에 시스템 용어가 아닌 용어가 들어가면 text로 전환 -->
+	
+	<div id="margin2" width="100%">
+	</div>
+
+	<div id="buttons">
+		<input type="button" value="Start" onClick="stopWatch()" id="bt_start">
+		<input type="button" value="Reset" onClick="reset()" id="bt_reset">
+		<input type="button" value="Lap" onClick="lap()" id="bt_lap">
+	</div>
+
+	<div id="margin3" width="100%">
+	</div>
+	
+	<input type="text" id="lap_time" >
+
+
+
+</div>
+
+
+</body>
+</html>
+
+<!-- -->

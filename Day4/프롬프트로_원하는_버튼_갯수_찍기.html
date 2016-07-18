@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>프롬프트로_원하는_버튼_갯수_찍기</title>
+
+<style>
+
+input{
+
+	width : 100px;
+	height : 50px;
+}
+
+</style>
+
+
+<script>
+
+var nB=prompt("생성할 버튼의 갯수를 입력하세요");
+var a=1;
+
+
+for( var a=1 ; a<=nB ; a++){
+
+	document.write("<input type=\"button\" value =\""+a+"\" >");		
+	// 맨앞뒤의 쌍따옴표를 먼저 붙여야 중간에 역슬래쉬를 붙여주기가 편하다
+	
+	if(a%5==0){
+
+		document.write("<br>");
+
+	}
+
+	
+
+}
+
+</script>
+
+
+
+</head>
+<body>
+
+</body>
+</html>
+
+<!-- -->

@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>충돌_감지_테스트</title>
+
+<style>
+
+#screen{
+
+	width : 1000px;
+	height : 800px;
+	
+
+}
+
+#box1, #box2{
+
+	width : 100px;
+	height : 100px;
+
+}
+
+#box1{
+
+	background : navy;
+	left : 100px;
+	top : 100px;
+
+}
+
+#box2{
+
+	background : yellow;
+	left : 500px;
+	top : 300px;
+
+}
+
+</style>
+
+<script src="../lib/AllRound.js"></script>
+<script>
+
+var box1;
+var box2;
+var screen;
+
+window.addEventListener("load", function(){
+
+	box1=document.getElementById("box1");
+	box2=document.getElementById("box2");
+	screen=document.getElementById("screen");
+
+	box1.addEventListener("mousemove", function(){
+
+		box1.style.left=(event.clientX-50)+"px";
+		box1.style.top=(event.clientY-50)+"px";
+
+		var result = hitTest(box1, box2);
+
+		if(result){
+
+			box2.innerText="충돌햇어요";
+			screen.style.background="red";
+
+
+		}else{
+
+			box2.innerText="";
+			screen.style.background="white";
+
+		}
+
+	});
+
+}); 
+
+</script>
+
+
+</head>
+<body>
+
+<div id="screen">
+
+	<div id="box1" style="position:absolute;left:100px;top:100px;width : 100px;height : 100px;">A</div>
+	<div id="box2" style="position:absolute;left:300px;top:500px;width : 100px;height : 100px;">B</div>
+
+<div>
+
+</body>
+</html>
+
+<!-- -->

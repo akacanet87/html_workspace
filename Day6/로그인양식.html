@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>로그인양식</title>
+
+
+<style>
+</style>
+
+
+<script>
+
+
+
+//	ID와 PW 입력을 제대로 유효하게 작성한 사람에 대해서만
+//	
+function loginCheck(){
+
+	//	서버에 정보를 보내기 전에 이 유저가 제대로 입력햇는지의 여부를 체크
+	//	유효성 체크
+
+	if( document.getElementById("mem_id").value == "" ){
+
+		alert("ID입력해!");
+
+		document.getElementById("mem_id").focus();
+		
+		return;					// 실행부를 호출부로 되돌아가게 함
+	
+	}else if( !document.getElementById("mem_pw").value){
+
+		alert("PW입력해!");
+
+		document.getElementById("mem_pw").focus();
+
+		return;
+
+	}
+
+		alert("다음으로 가자!");
+	
+		location.href="http://www.daum.net";
+
+}
+
+
+
+</script>
+
+</head>
+<body>
+
+	<table width="300px" border="1px" align="center">
+		
+		<tr>
+
+			<td>ID</td>
+			
+			<td><input type="text" maxlength="8" id="mem_id"></td>
+
+		</tr>
+		
+		<tr>
+
+			<td>PW</td>
+
+			<td><input type="password" maxlength="8" id="mem_pw"></td>
+
+		</tr>
+
+		<tr>
+
+			<td colspan="2" align="center">
+
+				<input type="button" value="회원가입">
+				<input type="button" value="ID/PW찾기">
+				<input type="button" value="로그인" onClick="loginCheck()">
+				
+			</td>
+
+		</tr>
+
+
+	</table>
+	
+</body>
+</html>
+
+<!-- -->

@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>2차원배열</title>
+
+<script>
+
+var fruit = ["사과","딸기","바나나","오렌지"];
+var movie = ["정글북","시빌워","곡성","아가씨"];
+var car = ["람보르기니","페라리","마이바흐","부가티"];
+
+var box = [fruit, movie, car];
+
+//	과일을 출력한다.
+
+document.write("######## 과일을 출력한다. ########<p>");
+
+for( var f=0 ; f<box[0].length ; f++ ){
+
+	document.write(box[0][f]+" ");
+
+}
+
+document.write("<p><p>");
+
+
+//	영화를 출력한다.
+
+document.write("######## 영화를 출력한다. ########<p>");
+
+for( var m=0 ; m<box[1].length ; m++ ){
+
+	document.write(box[1][m]+" ");
+
+}
+
+document.write("<p><p>");
+
+
+
+//	자동차를 출력한다.
+
+document.write("######## 자동차를 출력한다. ########<p>");
+ 
+for( var c=0 ; c<box[2].length ; c++ ){
+
+	document.write(box[2][c]+" ");
+
+}
+
+
+document.write("<p><p>");
+
+
+
+//	이중for문으로 출력한다.
+
+document.write("######## 이중for문으로 출력한다. ########<p>");
+
+for( var a=0 ; a<box.length ; a++ ){
+
+	for( var b=0 ; b<box[a].length ; b++){
+
+		document.write(box[a][b]+" ");
+
+	}
+
+	document.write("<br>");
+
+}
+
+</script>
+
+</head>
+<body>
+
+</body>
+</html>
+
+<!-- -->

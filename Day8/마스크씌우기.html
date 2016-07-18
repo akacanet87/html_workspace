@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>마스크씌우기</title>
+
+<style>
+
+#wrapper{
+
+	width : 500px;
+	margin-left : auto;
+	margin-right : auto;
+	margin-top : 200px;
+	text-align : center;
+	font-size : 15pt;
+
+
+
+}
+
+
+#mask{
+
+	width : 500px;
+	height : 360px;
+	overflow : hidden;
+
+}
+
+
+
+#box{
+
+	height : 340px;
+
+}
+
+img{
+
+	margin : 0px;
+
+}
+
+a{
+	
+	text-decoration : none; /* 밑줄 없애기 */
+	color : black;
+
+}
+
+
+a:hover{
+
+	color : #00ff33;
+
+}
+
+
+
+</style>
+
+
+
+<script>
+
+var box;
+var img;
+var rateNum=0.9;			//	부드러운 정도(수학에서 비율계수)
+var buf;
+var targetX=0;
+
+var imgArr = [
+
+	"../images/shurek/img0.jpg",
+	"../images/shurek/img1.jpg",
+	"../images/shurek/img2.jpg",
+	"../images/shurek/img3.jpg",
+	"../images/shurek/img4.jpg",
+	"../images/shurek/img5.jpg",
+	"../images/shurek/img6.jpg"
+
+];
+
+
+function init(){
+
+	box = document.getElementById("box");
+	box.style.width=500*imgArr.length+"px";
+//	box.style.position = "relative";
+//	box.style.left = 0+"px";
+//	box.style.top = 0+"px";
+
+	for( var a=0 ; a<imgArr.length ; a++ ){
+
+		var img = document.createElement("img");
+
+		img.src=imgArr[a];
+
+		box.appendChild(img);
+
+
+	}
+
+	//	심장박동 시작하기
+	move();
+
+
+
+}
+
+
+
+function showImg(imgNum){
+
+	targetX=-imgNum*500;
+
+}
+
+function move(){
+
+		//	이미지 위치 =  타겟X - a*(타겟X - 나와의 남은 거리));
+	box.style.left=targetX - rateNum*(targetX - parseFloat(box.style.left))+"px";
+	console.log(box.style.left);
+	buf = setTimeout("move()", 20);
+
+}
+
+
+
+
+
+</script>
+
+
+</head>
+<body onLoad="init()">
+<div id="wrapper">
+
+	<div id="mask">
+
+		<div id="box" style="position : relative; left : 0px; top : 0px">			
+			
+		</div>
+
+	</div>
+
+	<a href="javascript:showImg(0)">●</a>
+	<a href="javascript:showImg(1)">●</a>
+	<a href="javascript:showImg(2)">●</a>
+	<a href="javascript:showImg(3)">●</a>	
+	<a href="javascript:showImg(4)">●</a>
+	<a href="javascript:showImg(5)">●</a>
+	<a href="javascript:showImg(6)">●</a>
+
+</div>
+
+
+</body>
+</html>
+
+<!-- style="position : relative, left : 0px, top : 0px" -->

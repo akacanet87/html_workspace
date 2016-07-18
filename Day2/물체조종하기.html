@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+
+
+
+<style>
+/* 이 영역은 html이 아닌, Cascading Style sheet 라는 CSS라 불리는 디자인 영역이다.
+	이 기술을 으용하면, html의 문서로서의 한계를 극복할 수 있다.
+	예) 제한 없는 글씨 크기, 제한 없는 컨텐츠의 위치, 색상 등등 디자인과 관련된 거의 모든 것
+*/
+
+#pic{
+
+	position : absolute;							/* 절대위치로 지정 */
+	left : 20px;									/* x축 */
+	top : 50px;									/* y축 */
+	transform : rotate(10deg);
+	transform : scale(1,1);
+
+}
+
+
+</style>
+
+<script>
+
+
+var x=20;
+var y=50;
+
+var d=0;
+
+var sw=1;
+var sh=1;
+
+
+
+
+
+//버튼을 누르면 물체를 우측으로(left 증가) 움직임
+function moveRight(){
+	//문서 내에 pic 이라 불리는 이미지의 스타일 속성 중 left 값 변경
+
+
+	x+=25;
+
+
+	if(x>=1000){
+
+		x=20;
+
+	}else{
+
+		x=x;
+
+	}
+
+
+	if(x%2 == 1){
+
+		document.getElementById("pic").src="../images/crab1.jpg"
+
+	}else{
+
+		document.getElementById("pic").src="../images/crab2.jpg"
+
+	
+	}
+
+	document.getElementById("pic").style.left=x+"px";
+
+}
+
+function moveLeft(){
+	//문서 내에 pic 이라 불리는 이미지의 스타일 속성 중 left 값 변경
+
+
+	x-=25;
+
+
+	if(x<=20){
+
+		x=1000;
+
+	}else{
+
+		x=x;
+
+	}
+
+
+
+	if(x%2 == 1){
+
+		document.getElementById("pic").src="../images/crab1.jpg"
+
+	}else{
+
+		document.getElementById("pic").src="../images/crab2.jpg"
+
+	
+	}
+
+	document.getElementById("pic").style.left=x+"px";
+
+
+}
+
+function moveUp(){
+	//문서 내에 pic 이라 불리는 이미지의 스타일 속성 중 top 값 변경
+
+	y-=25;
+	
+	if(y<=50){
+
+		y=500;
+
+	}else{
+
+		y=y;
+
+	}
+
+
+	
+
+	if(y%2 == 1){
+
+		document.getElementById("pic").src="../images/crab1.jpg"
+
+	}else{
+
+		document.getElementById("pic").src="../images/crab2.jpg"
+
+	}
+
+
+	document.getElementById("pic").style.top=y+"px";
+
+
+}
+
+
+
+function moveDown(){
+	//문서 내에 pic 이라 불리는 이미지의 스타일 속성 중 top 값 변경
+	
+
+	y+=25;
+
+	if(y>=500){
+
+		y=50;
+
+	}else{
+
+		y=y;
+
+	}
+
+
+	
+
+	if(y%2 == 1){
+
+		document.getElementById("pic").src="../images/crab1.jpg"
+
+	}else{
+
+		document.getElementById("pic").src="../images/crab2.jpg"
+	
+	}
+
+	document.getElementById("pic").style.top=y+"px";
+
+}
+
+//스타일시트를 제어하여, 물체의 각도를 조절하기
+function spin(){
+
+	d=d+10;
+	document.getElementById("pic").style.transform="rotate("+d+"deg)"
+
+}
+
+
+
+
+//스타일시트를 제어하여, 물체의 스케일을 변경하기
+function setScale(){
+
+	sw++;
+	sh++;
+	document.getElementById("pic").style.transform="scale("+sw+","+sh+")"
+
+}
+
+</script>
+
+
+<body>
+
+<input type="button" value="◀◀" onClick="moveLeft()">
+<input type="button" value="▶▶" onClick="moveRight()">			<!-- onMouseOver는 마우스를 위에 올려놓으면 실행되는 것 -->
+<input type="button" value="▲▲" onClick="moveUp()">
+<input type="button" value="▼▼" onClick="moveDown()">
+
+
+<input type="button" value="회전" onClick="spin()">
+<input type="button" value="스케일링" onClick="setScale()">
+
+
+
+<img src="../images/crab1.jpg" id="pic">
+
+
+</body>
+</html>
+
+<!-- -->

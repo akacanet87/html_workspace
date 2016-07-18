@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>우주선_게임효과주기</title>
+
+<style>
+
+body{
+
+	margin : 0px;
+
+}
+
+
+#bg{
+	
+	width : 100%;
+	height : 860px;
+	background : url("../images/space.jpg") no-repeat;
+	background-repeat : repeat-x;
+
+}
+
+
+#ship{
+
+	position : absolute;							/* 절대위치로 지정 */
+	left : 20px;									/* x축 */
+	top : 500px;									/* y축 */
+/*	transform : rotate(10deg);
+	transform : scale(1,1);
+*/
+}
+
+
+
+#bullet{
+
+	position : absolute;
+	left : -120px;
+	top : 100px;
+
+}
+
+
+
+</style>
+
+
+<script>
+
+var x=0;
+var ship_x=20;
+var ship_y=500;
+
+var bullet_x=-120;
+var bullet_y=0;
+
+
+//	문서가 로드되면, 배경을 x축 방향으로 감소시키기
+
+function init(){
+
+	
+	x-=1;			//-2씩
+
+	document.getElementById("bg").style.backgroundPosition=x+"px, 0px";
+
+	setTimeout("init()", 50);
+
+}
+
+
+
+
+
+//	키보드 입력을 인식하여, 특히 방향키 4개에 대해서만 반응을 보이게
+//	우리가 키를 입력해도 컴퓨터는 이해 못하므로 우리가 입력한 키를 10진수로
+//	표현한 코드 체계가 중간에 관여한다 ASCII 코드
+function joyStick(){
+
+	var key = event.keyCode;		// 우리가 누른 키보드값에 대응하는 아스키코드값 반환
+
+	var pic = document.getElementById("ship");
+
+	if( key == 38 ){
+
+		ship_y-=10;
+
+		if(ship_y<5){
+
+			ship_y=5;
+
+		}
+
+	}else if( key == 40 ){
+
+		ship_y+=10;
+
+		if(ship_y>820){
+
+			ship_y=820;
+
+		}
+
+	}else 	if( key == 37 ){
+		
+		ship_x-=10;
+
+		
+		if(ship_x<10){
+
+			ship_x=10;
+
+		}
+
+	}else if( key == 39 ){
+
+		ship_x+=10;
+
+		if(ship_x>850){
+
+			ship_x=850;
+
+		}
+	
+	}else if( key == 40 && key == 39 ){				// 방향키를 동시에 누르기가 가능
+
+		ship_y+=10;
+		ship_x+=10;
+
+		if(ship_y>820){
+
+			ship_y=820;
+
+		}else if(ship_x>850){
+
+			ship_x=850;
+			
+		}
+
+	}
+	
+	
+	
+	if( key == 32 ){
+
+		fire();
+
+
+	}
+
+	pic.style.left=ship_x+"px";
+	pic.style.top=ship_y+"px";
+
+
+}
+
+
+//	총알이 날아가는 효과를 주기 위한 함수
+function fire(){
+
+	var bull = document.getElementById("bullet");
+
+	bullet_x+=10;
+
+	if(bullet_x<1320){
+
+		bull.style.left=bullet_x+"px";
+
+		setTimeout("fire()", 10);
+
+	}else{
+
+		bullet_x=-30;
+
+	}
+
+	bull.style.left=bullet_x+"px";
+	
+}
+
+</script>
+
+</head>
+<body onLoad="init()" onKeyDown="joyStick()">
+
+<div id="bg">
+
+	<img src="../images/spaceship3.png" width="100px" id="ship">
+	<img src="../images/bullet.png" width="20px" id="bullet">
+
+</div>
+
+
+</body>
+</html>
+
+<!-- -->

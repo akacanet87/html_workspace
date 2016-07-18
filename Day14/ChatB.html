@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ChatB</title>
+
+	
+
+<style>
+</style>
+
+<link rel="stylesheet" type="text/css" href="css/chat.css"/>
+
+<script>
+
+var ta;
+
+function init(){
+
+	ta=document.getElementById("ta");
+
+}
+
+function enter(obj){
+
+	var key = event.keyCode;
+
+	if( key == 13 ){
+
+		//opener.chatB.area.value+="ㅋㅋㅋㅋㅋ\n";
+
+		opener.chatA.ta.value+=obj.value+"\n";
+
+		ta.value+=obj.value+"\n";
+
+		obj.value="";
+
+	}
+
+}
+
+
+</script>
+
+
+
+</head>
+<body onLoad="init()">
+
+<div id="wrapper">
+<textarea id="ta"></textarea>
+<input type="text" onKeyUp="enter(this)">
+</div>
+
+</body>
+</html>
+
+<!-- -->

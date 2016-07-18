@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>스탑워치 Test용</title>
+ 
+	<style>
+ 		#display {
+ 			 
+ 			border:3px solid lightblue;
+ 			border-radius:15px;
+ 			width:500px;
+ 			height:100px;
+ 			text-align:center;
+			margin:auto; 
+			margin-top:40px;
+ 		}
+ 		
+ 		#buttondiv {
+ 			text-align:center;
+ 		}
+ 		
+ 		#movepika{
+ 			text-align:center;
+ 		}
+ 		
+ 		#milsecbox1 {
+			
+			width:30px;
+			border:0px;
+			font-size:40pt;
+			font-weight:bold;
+			font-color:#FFFFFF;
+			text-align:left;
+			margin-top:10px;
+		}
+ 		
+ 		#milsecbox2 {
+			
+			width:28px;
+			border:0px;
+			font-size:40pt;
+			font-weight:bold;
+			font-color:#FFFFFF;
+			text-align:right;
+			margin-top:10px;
+		}
+		
+		#secbox1 {
+			border:0px;
+			width:45px;
+			height:80px;
+			font-size:60pt;
+			font-weight:bold;
+			font-color:#FFFFFF;
+			text-align:right;
+			margin-top:10px;
+		}
+		
+		#secbox2 {
+			border:0px;
+			width:45px;
+			height:80px;
+			font-size:60pt;
+			font-weight:bold;
+			font-color:#FFFFFF;
+			text-align:right;
+			margin-top:10px;
+		}
+ 
+		#minbox1 {
+			border:0px;
+			width:45px;
+			height:80px;
+			font-size:60pt;
+			font-weight:bold;
+			text-align:right;
+			margin-top:5px;
+			
+		}
+ 
+ 		#minbox2 {
+			border:0px;
+			width:45px;
+			height:80px;
+			font-size:60pt;
+			font-weight:bold;
+			text-align:right;
+			margin-top:5px;
+			
+		}
+		
+		#hourbox1 {
+			border:0px;
+			width:45px;
+			height:80px;
+			font-size:60pt;
+			font-weight:bold;
+			text-align:right;
+			margin-top:5px;
+			
+		}
+ 		
+ 		#hourbox2 {
+			border:0px;
+			width:45px;
+			height:80px;
+			font-size:60pt;
+			font-weight:bold;
+			text-align:right;
+			margin-top:5px;
+			
+		}
+		
+		#startbt {
+			background:#1785F2;
+			border:2px inset #AAAAAA;			
+			border-radius:10px;
+			width:90px;
+			height:50px;
+			text-align:center;
+			color:#FFFFFF;
+			font-size:25px;
+ 
+		}
+
+		#resetbt {
+			background:#1785F2;
+			border:2px inset #AAAAAA;	
+			border-radius:10px;
+			width:90px;
+			height:50px;
+			text-align:center;
+			color:#FFFFFF;
+			font-size:25px;
+ 
+		}
+		
+		#pika {
+			position:absolute;
+			left:200px;
+			top:300px;
+		
+		}
+	
+	</style>
+	<script>
+		
+		var milsec1=0;
+ 		var milsec2=0;
+ 		
+		var sec1=0;
+		var sec2=0;
+		
+		var min1=9;
+		var min2=5;
+		
+		var hour1=9;
+		var hour2=0;
+		
+		var blink_flag=true;
+		var turn=true;
+		var scale_buf;
+		var pika_buf;
+		var x=200;
+ 
+		function scaleUp(){
+			milsec1++;		
+			
+			if (milsec1>9){
+				milsec1=0;
+				milsec2++;
+				
+				if(milsec2>9){
+					sec1++;
+					milsec2=0;
+					
+					if (sec1>9){
+						sec2++;
+						sec1=0;
+						
+							if(sec2>5){
+								min1++;
+								sec2=0;
+								
+								if( min1>9){
+									min2++;
+									min1=0;
+									
+									if(min2>5){
+										hour1++;
+										min2=0;
+										
+										if(hour1>9){
+											hour2++;
+											hour1=0;
+											
+											document.getElementById("hourbox1").value=hour1;
+											document.getElementById("hourbox2").value=hour2;
+											
+											document.getElementById("minbox1").value=min1;
+											document.getElementById("minbox2").value=min2;
+											
+											document.getElementById("secbox1").value=sec1;
+											document.getElementById("secbox2").value=sec2;
+											
+											document.getElementById("milsecbox1").value=milsec1;
+											document.getElementById("milsecbox2").value=milsec2;
+											
+										}
+										else{
+											
+											document.getElementById("hourbox1").value=hour1;
+											
+											document.getElementById("minbox1").value=min1;
+											document.getElementById("minbox2").value=min2;
+											
+											document.getElementById("secbox1").value=sec1;
+											document.getElementById("secbox2").value=sec2;
+											
+											document.getElementById("milsecbox1").value=milsec1;
+											document.getElementById("milsecbox2").value=milsec2;
+											
+										}
+										
+										
+										
+									}
+									
+									else{
+										document.getElementById("minbox1").value=min1;
+										document.getElementById("minbox2").value=min2;
+										
+										document.getElementById("secbox1").value=sec1;
+										document.getElementById("secbox2").value=sec2;
+										
+										document.getElementById("milsecbox1").value=milsec1;
+										document.getElementById("milsecbox2").value=milsec2;
+										
+									}
+									
+								}
+								else{
+									document.getElementById("minbox1").value=min1;
+																		
+									document.getElementById("secbox1").value=sec1;
+									document.getElementById("secbox2").value=sec2;
+									
+									document.getElementById("milsecbox1").value=milsec1;
+									document.getElementById("milsecbox2").value=milsec2;
+									
+								}
+							}
+							
+							else{
+								document.getElementById("secbox1").value=sec1;
+								document.getElementById("secbox2").value=sec2;
+								
+								document.getElementById("milsecbox1").value=milsec1;
+								document.getElementById("milsecbox2").value=milsec2;
+						}
+					}
+					else{
+						document.getElementById("secbox1").value=sec1;
+						
+						document.getElementById("milsecbox1").value=milsec1;
+						document.getElementById("milsecbox2").value=milsec2;
+					}				
+					
+				}
+				else{
+					document.getElementById("milsecbox2").value=milsec2;
+					document.getElementById("milsecbox1").value=milsec1;
+				}
+			}
+			
+			else{
+				document.getElementById("milsecbox1").value=milsec1;
+			}
+		}
+
+		function runPika(){
+			
+			if( !turn ){		
+				x-=50;
+				if(!blink_flag){
+					document.getElementById("pika").src="./img/pika3.jpg";
+				}
+				else{
+					document.getElementById("pika").src="./img/pika4.jpg";
+				}
+				
+				document.getElementById("pika").style.left=x+"px";
+				if( x<=200){
+					turn=true;
+				}
+			}
+			else {
+				x+=50;
+				if(!blink_flag){
+					document.getElementById("pika").src="./img/pika1.jpg";
+				}
+				else{
+					document.getElementById("pika").src="./img/pika2.jpg";
+				}
+				//blink_flag=!blink_flag;
+				document.getElementById("pika").style.left=x+"px";
+				if(x>=900){
+					turn=false;
+				}
+			}
+			blink_flag=!blink_flag;
+			
+		}
+		
+		function GoStop(value){
+			if(value=="Start"){
+				document.getElementById("startbt").value="Pause";
+				blink_buf=setInterval("scaleUp()", 10);
+				pika_buf=setInterval("runPika()", 100);
+			}
+			else if(value=="Pause"){
+				clearInterval(blink_buf);			
+				clearInterval(pika_buf);
+				document.getElementById("startbt").value="Go on";
+			}
+			else if(value=="Go on"){
+				document.getElementById("startbt").value="Pause";
+				blink_buf=setInterval("scaleUp()", 10);
+				pika_buf=setInterval("runPika()", 100);
+			}
+		}
+ 				
+		
+		
+		function reset(){
+			milsec1=0;
+			milsec2=0;
+			
+			sec1=0;
+			sec2=0;
+			
+			min1=0;
+			min2=0;
+			
+			hour1=0;
+			hour2=0;
+			
+			x=200;
+			
+			blink_flag=true;
+			turn=true;
+			
+			document.getElementById("hourbox1").value=hour1;
+			document.getElementById("hourbox2").value=hour2;
+						
+			document.getElementById("minbox1").value=min1;
+			document.getElementById("minbox2").value=min2;
+						
+			document.getElementById("secbox1").value=sec1;
+			document.getElementById("secbox2").value=sec2;
+			
+			document.getElementById("milsecbox1").value=milsec1;
+			document.getElementById("milsecbox2").value=milsec2;
+			
+			document.getElementById("startbt").value="Start";
+			document.getElementById("pika").style.left=x+"px";
+			document.getElementById("pika").src="./img/pika1.jpg";
+		}
+		
+		function init(){
+			document.getElementById("hourbox1").value=9;
+			document.getElementById("hourbox2").value=0;
+			
+			document.getElementById("minbox1").value=9;
+			document.getElementById("minbox2").value=5;
+			
+			document.getElementById("secbox1").value=0;
+			document.getElementById("secbox2").value=0;
+			
+			document.getElementById("milsecbox1").value=0;
+			document.getElementById("milsecbox2").value=0;
+		}
+	</script>
+</head>
+<body onLoad="init()">
+	<div id="display" >
+		<input type="text" id="hourbox2" value="" >
+		<input type="text" id="hourbox1" value="" >
+		
+		<img id="blink1" src="./img/blink.png" width="14px">
+		
+		<input type="text" id="minbox2" value="" >
+		<input type="text" id="minbox1" value="" >
+		
+		<img id="blink2" src="./img/blink.png" width="14px">
+		
+		<input type="text" id="secbox2" value="" >
+		<input type="text" id="secbox1" value="" >
+		
+		<img id="blink3" src="./img/dot.png" width="14px">
+		
+		<input type="text" id="milsecbox2" value="" >
+		<input type="text" id="milsecbox1" value="" >
+	</div>
+ 
+		<br><br>
+	<div id="buttondiv">
+		<input type="button" id="startbt" value="Start" onClick="GoStop(value)">
+		<input type="button" id="resetbt" value="Reset" onClick="reset()">
+	</div>
+	
+	<br><br>
+	
+	<div id="movepika">
+		<img id="pika" src="./img/pika1.jpg" width="200px">	
+	</div>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>6일차연습문제</title>
+
+
+
+<script>
+
+//	11번
+
+
+	document.write("##### 11번문제 #####<br><br>");
+
+var numarr=new Array(10);
+
+for( var a=0 ; a<numarr.length ; a++){
+
+	numarr[a]=a;
+
+	document.write(numarr[a]);
+
+
+} 
+
+	document.write("<br><br><br><br><br>");
+
+
+
+
+//	12번
+
+
+document.write("##### 12번문제 #####<br><br>");
+
+
+document.write("<br><br><br>ifelse문을 이용하면<br><br>");
+
+
+
+var arr=new Array(20);
+
+for( var a=0 ; a<arr.length ; a++ ){
+
+	if(a<10){
+
+		arr[a]=0;
+
+	}else{
+
+		arr[a]=1;
+
+	}
+
+	document.write((a+1)+"번째 배열 ="+arr[a]+"<br>");
+
+}
+
+
+document.write("<br><br><br>삼항연산자를 이용하면<br><br>");
+
+
+for( var a=0 ; a<arr.length ; a++ ){
+
+	(a<10)? arr[a]=0 : arr[a]=1;
+
+	document.write((a+1)+"번째 배열 ="+arr[a]+"<br>");
+
+
+	}
+
+
+	
+</script>
+
+
+
+</head>
+<body>
+
+</body>
+</html>
+
+<!-- -->

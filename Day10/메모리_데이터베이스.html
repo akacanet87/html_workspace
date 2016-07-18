@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>메모리_데이터베이스</title>
+
+<style>
+
+#wrapper{
+
+	width : 650px;
+	height : 600px;
+	background : red;
+
+}
+
+
+#info{
+
+	width : 150px;
+	height : 600px;
+ 	background : yellow;
+	float : left; 
+
+}
+
+#db{
+
+	width : 500px;
+	height : 600px;
+	background : green;
+	float : left; 
+
+}
+
+
+</style>
+
+
+<script>
+
+var bt;
+var m_id;
+var m_pw;
+var count=0;
+var table;
+
+
+//	여러명의 회원을 담을 배열
+var mArr = new Array();							//	정해져 있으면 안된다.
+
+
+window.addEventListener("load", function(){
+
+	
+	//	버튼에 이벤트 핸들러 처리
+	getTitle();
+	init();
+
+});
+
+
+function init(){
+
+	bt=document.getElementById("bt");
+	m_id = document.getElementById("m_id");
+	m_pw = document.getElementById("m_pw");
+
+
+	bt.addEventListener("click", function(){
+	
+		//	alert("나 눌렀어");
+
+		//	아이디를 입력하지 않으면 욕
+		//	패스워드를 입력하지 않으면 욕
+
+
+		//	제대로 입력 되었을 경우 등록절차 수행
+		
+		
+
+		if( m_id.value=="" ){
+
+			alert("아이디 똑바로 입력해 XX놈아");
+			m_id.focus();
+
+			return;
+
+		}else if( !m_pw.value){			//	m_pw.value==""			와 같은 말
+
+			alert("패스워드도 똑바로 입력해 XXX끼야");
+			m_pw.focus();
+
+			return;
+
+		}
+
+
+		//	지금 등록하려는 사람의 아이디와 패스워드를 일차원 배열에 보관
+
+		var member = [ m_id.value, m_pw.value ];					//	value값을 갖고 오자
+
+
+		//	개발자가 직접 카운트를 넣는 방법
+		//	mArr[count]=member;
+		//	count++;	
+		//	alert(count+"번째로 등록되었습니다");
+
+
+		mArr.push(member);
+
+		alert(mArr.length+"번째로 등록되었습니다");
+	
+
+		getList();
+
+	});
+
+}
+
+
+//	제목을 처리하는 함수 정의
+function getTitle(){
+
+	table = document.createElement("table");
+
+	table.style.width=450+"px";
+	//	table.style.border="1px solid red";
+
+	//	tr 생성 및 추가 (2차원 배열의 크기만큼)
+	var tr = document.createElement("tr");
+
+	//	td 생성 및 추가 (1차원 배열 크기만큼)
+	var no_td = document.createElement("td");
+
+	no_td.innerText="번호";
+
+	var id_td = document.createElement("td");
+
+	id_td.innerText="ID";
+
+	var pw_td = document.createElement("td");
+
+	pw_td.innerText="패스워드";
+
+
+	//	생성된 컬럼 td들을 tr에 추가한다.
+
+	tr.appendChild(no_td);
+	tr.appendChild(id_td);
+	tr.appendChild(pw_td);
+
+	table.appendChild(tr);
+
+	db.appendChild(table);
+
+
+
+}
+
+//	appendChild의 특성상 테이블에 기존값이 누적되므로
+//	리스트를 보여주기 전에 table의 자식 요소들을 지운다.
+function initTable(){
+
+	table.innerHTML="";
+	getTitle();
+
+
+}
+
+
+//	등록된 회원명단을 테이블로 출력하기
+function getList(){
+
+
+	initTable();
+
+	var len = mArr.length;
+	var n = len;
+
+
+	for( var a=len-1 ; a>=0 ; a-- ){
+		//	이후 tr부터는 실제 등록된 데이터가 출력되어야 한다.
+		console.log(mArr[a][0], mArr[a][0]);
+		var record_tr = document.createElement("tr");
+
+		var td0 = document.createElement("td");
+		var td1 = document.createElement("td");
+		var td2 = document.createElement("td");
+
+		td0.innerText=n--;
+		td1.innerText=mArr[a][0];		//	첫번째 레코드에 들어있는 id 정보 넣기
+		td2.innerText=mArr[a][1];		//	첫번째 레코드에 들어있는 pw 정보	넣기
+		
+		//	생성된 td들을 tr에 추가하기
+		record_tr.appendChild(td0);
+		record_tr.appendChild(td1);
+		record_tr.appendChild(td2);
+
+
+		table.appendChild(record_tr);
+
+	}
+
+	//	div에 테이블 최종 출력
+
+
+
+
+}
+
+
+
+
+</script>
+
+
+</head>
+<body>
+
+<div id="wrapper">
+
+	<div id="info">
+
+		ID :	<input type="text" id="m_id" size="7" maxlength="12"><br>
+		PW :	<input type="password" id="m_pw" size="7" maxlength="8"><br>
+		<input type="button" value="등록" width="50px" id="bt">
+
+	</div>
+
+	<div id="db">
+	</div>
+
+</div>
+
+
+</body>
+</html>
+
+<!-- -->

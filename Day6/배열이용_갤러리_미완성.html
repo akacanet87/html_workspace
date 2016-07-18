@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>배열이용_갤러리</title>
+
+<style>
+
+
+#window{
+
+	width : 500px;
+	height : 600px;
+	margin : auto;
+
+}
+
+#bt_layout{
+
+	width : 100%;
+	height : 50px;
+	text-align : center;
+
+}
+
+
+#controller img{
+
+	width : 50px;
+
+}
+
+
+</style>
+
+
+
+<script>
+
+//	배열 선언
+var photo = new Array();
+
+photo[0]="awesome_conceptcar.jpg";
+photo[1]="black_racingcar.jpg";
+photo[2]="black_supercar.jpg";
+photo[3]="left_headlight.jpg";
+photo[4]="red_supercar.jpg";
+photo[5]="right_headlight.jpg";
+photo[6]="white_coneptcar.jpg";
+photo[7]="white_supercar_side_view.jpg";
+photo[8]="yellow_racingcar.jpg";
+photo[9]="yellow_supercar_side_view.jpg";
+
+var buf;
+var count=0;
+var isPlaying=false;
+
+
+function init(){
+
+	document.getElementById("main");
+
+}
+
+function prev(){
+
+	count--;
+
+	if(count<0){
+
+		count=9;
+
+	}
+
+	document.getElementById("main").src="../cars/"+photo[count];
+
+}
+
+
+function next(){
+
+	count++;
+
+	if(count>9){
+
+		count=0;
+
+	}
+
+	document.getElementById("main").src="../cars/"+photo[count];
+
+}
+
+
+function play(){
+	
+	if(!isPlaying){
+
+		buf = setInterval("next()", 800);
+
+		document.getElementById("bt_play").src="../images/pause.png";
+
+	}else{
+
+		clearInterval(buf);
+
+		document.getElementById("bt_play").src="../images/play.png";
+
+	}
+
+	isPlaying=!isPlaying;
+
+}
+
+
+
+</script>
+
+
+</head>
+<body onLoad="init()">
+
+<div id="window">
+	
+	<img src="../cars/awesome_conceptcar.jpg" width="100%" id="main">
+	
+	<div id="bt_layout">
+	
+		<img src="../images/back.png" id="bt_prev" onClick="prev()">
+		<img src="../images/play.png" id="bt_play" onClick="play()">
+		<img src="../images/forward.png" id="bt_next" onClick="next()">
+
+	</div>
+
+
+
+</div>
+
+
+</body>
+</html>
+
+<!-- -->

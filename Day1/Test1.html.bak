@@ -1,0 +1,20 @@
+<!doctype html>															<!-- 최신버전의 html을 실행 -->
+<html>																		<!-- 이 부분이 있어야 브라우저 실행 시 제대로 인식 -->
+<head>																		<!-- 머리부분의 시작 --><!-- -->
+																				<!-- 브라우저의 상단 헤더 영역, 내용이 나오는 곳이 아님 -->
+																				<!-- 프로그램이 실행하지 않는 주석부분 -->
+<title> 문서의 제목영역 </title>
+
+<style>
+#myFont{
+		font-size:600pt
+}
+</style>																		<!-- -->
+
+</head>																		<!-- 머리부분의 끝 -->
+<body>																		<!-- 문서의 내용이 나올 곳 -->
+
+<font id="myFont" size="120pt" color="skyblue"> HTML </font>은 전자문서로서, <br>		<!-- <br> 은 엔터의 의미이다 -->
+파일의 확장자는  .html or htm 으로 해야 한다.
+</body>
+</html>

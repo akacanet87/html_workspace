@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>우주선_움직이기</title>
+
+
+<style>
+
+
+
+</style>
+
+
+<script src="../lib/Bullet.js"></script>
+<script src="../lib/Flame.js"></script>
+<script>
+
+/*
+	사물은 상태와 동작으로 구성된다.
+	아래의 클래스 안에 변수와 함수를 기재한다
+*/
+
+
+var stage;
+var ship;
+var flame;
+
+
+
+
+
+
+//	loadevent 처리
+window.addEventListener("load", function(){
+
+	stage = document.getElementById("stage");
+	stage.style.background="url('../images/space4.jpg')";
+	stage.style.width=1200+"px";
+	stage.style.height=800+"px";
+
+
+	ship = new Ship(100, 50, 100, 500, stage);
+
+	ship.init();
+
+	flame = new Flame( ship.width, ship.height, ship.x, ship.y, stage );
+
+	flame.init();
+
+
+});
+
+
+//	마우스 이벤트 처리
+
+window.addEventListener("keydown", function(){
+
+
+
+	//	스페이스바 누르면 실행될 코드
+	if(event.keyCode==32){
+
+		//	alert("총알 날릴까");
+
+	var bullet = new Bullet( stage, ship.x, ship.y);
+
+	bullet.init();
+		
+	}else if( event.keyCode==37 ){			//	좌측으로. x값 감소
+
+		ship.x-=10;
+
+		ship.go();
+
+		//flame.follow(ship.x, ship.y);
+
+	}else if( event.keyCode==38 ){			//	상측으로. y값 감소
+
+		ship.y-=10;
+
+		ship.go();
+
+		//flame.follow(ship.x, ship.y);
+
+	}else if( event.keyCode==39 ){			//	우측으로. x값 증가
+
+		ship.x+=10;
+
+		ship.go();
+
+		//flame.follow(ship.x, ship.y);
+
+	}else if( event.keyCode==40 ){			//	하측으로. y값 증가
+
+		ship.y+=10;
+
+		ship.go();
+
+		//flame.follow(ship.x, ship.y);
+
+	}
+
+	flame.follow(ship.x, ship.y);
+
+
+});
+
+var Ship = function(width, height, x, y, area){
+	
+	this.width=width;
+	this.height=height;
+	this.x=x;
+	this.y=y;
+	this.img;
+	this.area=area;
+
+	this.init=function(){
+
+		this.img = document.createElement("img");	
+
+		this.img.style.width=this.width+"px";
+		this.img.style.height=this.height+"px";
+		this.img.style.position="absolute";
+		this.img.style.left=this.x+"px";
+		this.img.style.top=this.y+"px";
+
+		this.img.src="../images/spaceship7.png";
+
+		area.appendChild(this.img);
+
+	}
+
+	//	방향이동
+
+	this.go=function(){
+
+		this.img.style.left=this.x+"px";
+		this.img.style.top=this.y+"px";
+
+	}
+
+
+}
+
+</script>
+
+
+
+
+</head>
+<body id="stage">
+
+</body>
+</html>
+
+<!-- -->

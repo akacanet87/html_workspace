@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>스톱워치</title>
+
+<style>
+
+#window{
+
+	width : 500px;
+	height : 200px;
+	font-weight : bold;
+	color : white;
+	background : black;
+	text-align : center;			/* 내용물에 대한 우측 정렬	*/
+	margin : auto;
+
+}
+#window input{
+
+	width : 100px;
+	height : 75px;
+	font-size : 30pt;
+	margin : auto;
+	text-align : center;
+
+}
+
+</style>
+
+
+<script>
+
+var ms=0;
+var ss=0;		// 초를 담는 전역변수, 누적되어야 하므로 전역변수로 설정
+var mm=0;
+var hh=0;
+var st;
+
+
+//문서가 모두 읽혀졌으므로, 아래의 txt요소를 접근할 수 있는 시점
+function init(){
+
+	document.getElementById("box_ms").value="00";
+	document.getElementById("box_ss").value="00";
+	document.getElementById("box_mm").value="00";
+	document.getElementById("box_hh").value="00";
+
+}
+
+
+
+// txt의 기존값을 증가값으로 대입
+function start(){
+
+
+
+	// ms값이 100이되면 다시 0으로 세팅
+	ms++;
+
+	if(ms==100){
+
+		ms=0;
+		ss++;
+
+	}else{
+
+		ms= ms;
+	
+	}
+
+
+	// ss값이 60이되면 다시 0으로 세팅
+	if(ss==60){
+
+		ss=0;
+		mm++;
+
+	}else{
+
+		ss=ss;
+	
+	}
+
+
+
+	// mm값이 60이되면 다시 0으로 세팅
+	if(mm==100){
+
+		mm=0;
+		hh++
+
+	}else{
+
+		mm=mm;
+	
+	}
+
+
+
+	// hh값이 100이되면 다시 0으로 세팅
+	if(hh==100){
+
+		hh=0;
+
+	}else{
+
+		hh=hh;
+	
+	}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+// 0부터 9까지는 앞에 0을 붙이도록 함
+	if( ms>=0 && ms <=9 ){
+
+		document.getElementById("box_ms").value="0"+ms;
+
+	}else{
+
+		document.getElementById("box_ms").value=ms;
+
+	}
+
+
+
+
+	if( ss>=0 && ss <=9 ){
+
+		document.getElementById("box_ss").value="0"+ss;
+
+	}else{
+
+		document.getElementById("box_ss").value=ss;
+
+	}
+
+
+	if( mm>=0 && mm <=9 ){
+
+		document.getElementById("box_mm").value="0"+mm;
+
+	}else{
+
+		document.getElementById("box_mm").value=mm;
+
+	}
+
+
+	if( hh>=0 && hh<=9 ){
+
+		document.getElementById("box_hh").value="0"+hh;
+
+	}else{
+
+		document.getElementById("box_hh").value=hh;
+
+	}
+	
+	
+	st=setTimeout("start()", 10);
+	
+	
+	//버튼을 못누르게 비활성화 시키기
+	document.getElementById("bt_start").disabled=true;
+
+}
+
+
+
+function stop(){
+
+	clearTimeout(st);									// 기존 셋 타임 아웃에 의한 자동 호출을 중지시킴
+	document.getElementById("bt_start").disabled=false;
+	//비활성화 할래? 아니오 -->> 활성화
+
+}
+
+function reset(){
+	
+	clearTimeout(st);									// 기존 셋 타임 아웃에 의한 자동 호출을 중지시킴
+	document.getElementById("bt_start").disabled=false;
+
+	ms=0;
+	ss=0;
+	mm=0;
+	hh=0;
+
+
+
+	init();
+
+}
+
+
+
+
+</script>
+
+
+</head>
+<body onLoad="init()">
+
+<div id="window" width="100%">
+
+	<input type="text" maxlength="2" id="box_hh">						<!-- input type에 시스템 용어가 아닌 용어가 들어가면 text로 전환 -->
+	<input type="text" maxlength="2" id="box_mm">	
+	<input type="text" maxlength="2" id="box_ss">	
+	<input type="text" maxlength="2" id="box_ms">	
+
+	<div id="buttons">
+		<input type="button" value="START" onClick="start()" id="bt_start">
+		<input type="button" value="STOP" onClick="stop()" id="bt_stop">
+		<input type="button" value="RESET" onClick="reset()" id="bt_reset">
+	</div>
+
+</div>
+
+
+</body>
+</html>
+
+<!-- -->

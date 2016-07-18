@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>우편번호검색</title>
+
+<script>
+
+//	새창에서 선택한 현재의 우편번호 텍스트를 부모 윈도우의
+//	우편번호 입력란에 채워 넣기 + 주소도 채워넣기
+function setPost(post, addr){
+
+	var postArr=post.split("-");
+	var addr = addr;
+	opener.document.form1.zipcode1.value=postArr[0];
+	opener.document.form1.zipcode2.value=postArr[1];
+	opener.document.form1.addr1.value=addr;
+	window.close();		//	현재 창 닫기
+	opener.document.form1.addr2.focus();
+}
+
+</script>
+
+
+</head>
+<body>
+
+<table width="100%" border="1px">
+
+	<tr>
+		<td colspan="2" align="center">
+			<input type="text">
+			<img src="/images/find_bt.png" width="20px">
+		</td>
+	</tr>
+	<tr>
+		<td>우편번호</td>
+		<td>주소</td>
+	</tr>
+	<tr onMouseOver="this.style.background='#33ffff'" onMouseOut="this.style.background=''">
+		<td><a href="javascript:setPost('123-123', '경기도 의왕시 내손동')">123-123</a></td>
+		<td>경기도 의왕시 내손동</td>
+	</tr>
+	<tr onMouseOver="this.style.background='#33ffff'" onMouseOut="this.style.background=''">
+		<td><a href="javascript:setPost('123-232', '경기도 의왕시 내손1동')">123-232</a></td>
+		<td>경기도 의왕시 내손1동</td>
+	</tr>
+	<tr onMouseOver="this.style.background='#33ffff'" onMouseOut="this.style.background=''">
+		<td><a href="javascript:setPost('123-231', '경기도 의왕시 내손2동')">123-231</a></td>
+		<td>경기도 의왕시 내손2동</td>
+	</tr>
+	<tr onMouseOver="this.style.background='#33ffff'" onMouseOut="this.style.background=''">
+		<td><a href="javascript:setPost('123-343', '경기도 의왕시 포일동')">123-343</a></td>
+		<td>경기도 의왕시 포일동</td>
+	</tr>
+	<tr onMouseOver="this.style.background='#33ffff'" onMouseOut="this.style.background=''">
+		<td><a href="javascript:setPost('123-458', '경기도 의왕시 오전동')">123-458</a></td>
+		<td>경기도 의왕시 오전동</td>
+	</tr>
+	<tr onMouseOver="this.style.background='#33ffff'" onMouseOut="this.style.background=''">
+		<td><a href="javascript:setPost('123-456', '경기도 의왕시 고천동')">123-456</a></td>
+		<td>경기도 의왕시 고천동</td>
+	</tr>
+	<tr onMouseOver="this.style.background='#33ffff'" onMouseOut="this.style.background=''">
+		<td><a href="javascript:setPost('123-346', '경기도 의왕시 부곡동')">123-346</a></td>
+		<td>경기도 의왕시 부곡동</td>
+	</tr>
+	<tr onMouseOver="this.style.background='#33ffff'" onMouseOut="this.style.background=''">
+		<td><a href="javascript:setPost('123-575', '경기도 의왕시 왕정동')">123-575</a></td>
+		<td>경기도 의왕시 왕정동</td>
+	</tr>
+
+
+
+</table>
+
+</body>
+</html>
+
+<!-- -->

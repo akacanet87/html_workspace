@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Music_Player</title>
+
+<style>
+
+#monitor{
+
+	background : yellow;
+	width : 500px;
+	height : 100px;
+	border : 3px solid green;
+	font-size : 30pt;
+	color : red;
+	font-weight : bold;
+
+}
+
+</style>
+
+
+<script>
+
+
+var isPlaying=false;								// 플레이 시킬지, 멈출지 여부를 결정하는 논리값
+var count=1;											// 어떤 파일을 실행할 지 그 이름을 담게 될 변수
+
+
+//문서 내의 music 이라는 요소를 플레이하자
+function play(){
+
+	if(!isPlaying){
+
+//		document.getElementById("music").loop()=document.getElementById("ch").checked;			// 체크박스의 상태에 따라 loop여부를 결정
+		document.getElementById("music").load();										//플레이 전에 언제나 메모리에 적재시킨다.
+		document.getElementById("music").play();
+		document.getElementById("music_name").innerText="1.mp3";
+		document.getElementById("bt_play").value="||";
+	
+	}else{
+
+		document.getElementById("music").pause();
+		document.getElementById("bt_play").value="▶";
+
+	}
+
+	isPlaying=!isPlaying;
+
+}
+
+
+//다시 음악을 준비시켜라
+function stop(){
+
+	document.getElementById("music").load();
+
+}
+
+
+
+
+function next(){
+	
+	count++;
+
+	if(count==10){
+		
+		count=1;
+
+	}else{
+
+		count=count;
+
+	}
+
+
+	document.getElementById("dest").src="../music/"+count+".mp3";
+	document.getElementById("music").load();									// 변경될 음악을 메모리에 로딩할 시간을 줘야 한다.
+																								// 그리고 나서 플레이가 된다.
+	document.getElementById("music").play();
+
+	//play();
+
+}
+
+
+
+
+
+function prev(){
+	
+	count--;
+
+	if(count==0){
+
+		count=10;
+
+	}else{
+
+		count=count;
+
+	}
+
+
+	document.getElementById("dest").src="../music/"+count+".mp3";
+	document.getElementById("music").load();									// 변경될 음악을 메모리에 로딩할 시간을 줘야 한다.
+																								// 그리고 나서 플레이가 된다.
+	document.getElementById("music").play();
+
+	//play();
+
+	
+
+}
+
+
+</script>
+
+
+</head>
+<body>
+
+
+<audio id="music">
+
+  <source id="dest" src="../music/1.mp3" type="audio/mpeg">
+Your browser does not support the audio element.
+
+</audio>
+
+<div id="monitor">
+<marquee id="music_name">재생버튼을 누르세요</marquee>
+</div>					<!--  배치 관리 -->
+
+<input type="button" value="◀◀" onClick="prev()">
+<input type="button" value="ㅁ" onClick="stop()">
+<input type="button" value="▶" onClick="play()" id="bt_play">
+<input type="button" value="▶▶" onClick="next()">
+Repeat : <input type="checkbox" id="ch">										<!--  체크박스는 자동적으로 체크되면 true 해제되면 false를 반환 -->
+
+</body>
+</html>
+
+<!-- -->

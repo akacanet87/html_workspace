@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>달력</title>
+
+<style>
+
+#wrapper{
+
+	width : 714px;
+	height : 806px;
+	border : 1px solid red;
+	margin : auto;
+
+}
+
+#up{
+
+	width : 100%;
+	height : 50px;
+	background : #99ffcc;
+
+}
+
+#dayTitle{
+
+	width : 100%;
+	height : 30px;
+	background : #ffff99;
+	margin : auto;
+
+}
+
+#down{
+
+	width : 100%;
+	height : 720px;
+	background : #99ffcc;
+
+}
+
+ul{
+
+	list-style : none;
+	width : 100%;
+	text-align : center;
+	margin : auto;
+
+}
+
+ul li{
+
+	float : left;
+	width : 100px;
+	border : 1px solid black;
+
+}
+
+
+</style>
+
+
+<script src="../lib/DateBox.js"></script>
+<script src="../lib/AllRound.js"></script>
+
+<script>
+
+var down;
+var box;
+var op;
+
+var sel_yy;
+var sel_mm;
+var sel_dd;
+
+var dayName=["일", "월", "화", "수", "목", "금", "토"];
+
+
+window.addEventListener("load", function(){
+
+	init();
+
+});
+
+function init(){
+
+	down = document.getElementById("down");
+
+	setCal();
+
+}
+
+
+
+function setCal(){
+
+	sel_yy = document.getElementById("sel_yy");
+	sel_mm = document.getElementById("sel_mm");
+
+	for( var y=1980 ; y<=2030 ;  y++ ){
+
+		op = document.createElement("option");
+
+		op.text=y;
+
+		sel_yy.add(op);
+
+	}
+
+	for( var m=1 ; m<=12 ;  m++ ){
+
+		op = document.createElement("option");
+
+		op.text=m;
+
+		sel_mm.add(op);
+
+	}
+
+	createBox();
+
+}
+
+
+
+//	기존에 출력된 달력을 모두 지우기
+function deleteBox(){
+
+	down.innerText="";
+
+}
+
+
+
+function createBox(){
+
+	//	현재 select박스에서 선택한 값에 의한 날짜 정보 셋팅
+	var d = new Date(sel_yy.value+"-"+sel_mm.value+"-1");
+
+	var n=0;
+
+	var lastDate=getLastDate(sel_yy.value, sel_mm.value);
+
+	for( var a=1 ; a<=42 ; a++ ){
+
+		if( a>d.getDay() && n<lastDate ){
+
+			n++;
+
+			box =  new DateBox( down, 100, 100, n );
+
+			box.init();
+
+		}else{
+
+			box =  new DateBox( down, 100, 100, "" );
+
+			box.init();
+
+		}
+
+	}
+
+}
+
+
+
+
+//	다운 영역에 선택한 날짜에 해당하는 달력이 출력
+function showBox(){
+
+	deleteBox();
+	createBox();
+
+}
+
+
+</script>
+
+
+</head>
+<body>
+
+<div id="wrapper">
+
+	<div id="up">
+	
+		<select id="sel_yy"></select>년도
+		<select id="sel_mm"></select>월
+		<input type="button" value="검색" onClick="showBox()">
+	
+	</div>
+	
+	<div id="dayTitle"></div>
+		
+		<ul>
+			
+			<li>일</li>
+			<li>월</li>
+			<li>화</li>
+			<li>수</li>
+			<li>목</li>
+			<li>금</li>
+			<li>토</li>
+		
+		</ul>
+	
+	<div id="down"></div>
+
+</div>
+
+
+</body>
+</html>
+
+<!-- -->

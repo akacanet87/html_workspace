@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>마우스이벤트</title>
+<style>
+/* 
+		div란? division 이라는 의미의 태그로서, 화면을 분할하는 역할을 해준다.
+		주로 웹 사이트의 레이아웃에 사용된다
+*/
+
+
+
+div{
+	
+	width : 100%;
+	height : 1000px;		/* 높이에는 %개념이 없다 */
+	background : yellow;
+
+}
+
+#pic{
+
+	position : absolute;
+	width : 100px;
+	left : 100px;
+	top : 100px
+		
+}
+
+</style>
+
+
+<script>
+
+var flag=false;					// 피카츄를 움직이게 할지의 여부를 결정하는 변수
+
+function getInfo(){
+
+	console.log("마우스 x좌표 : "+event.clientX+", y좌표"+event.clientY);		// x좌표
+
+		//문서내의 tx, ty에 좌표를 출력하자
+	document.getElementById("tx").value=event.clientX;
+	document.getElementById("ty").value=event.clientY;
+
+
+	//피카츄의 좌표값(left,top) 을 마우스의 좌표와 일치시켜 보자
+	if(flag){
+
+		document.getElementById("pic").style.border="3px solid red";
+		document.getElementById("pic").style.left=(event.clientX-40)+"px";
+		document.getElementById("pic").style.top=(event.clientY-50)+"px";
+	
+	}else{
+
+		document.getElementById("pic").style.border="0px";		// 경계선 없애기
+
+	}
+}
+
+
+//기존 flag 값을 뒤집자
+function setFlag(){
+
+	flag=!flag;
+
+}
+
+
+</script>
+
+
+</head>
+<body onMouseMove="getInfo()">
+
+
+x좌표 : <input type="text" id="tx">
+<br>
+y좌표 : <input type="text" id="ty">
+
+<div><img src="../images/pica5.png" id="pic" onClick="setFlag()"></div>
+
+</body>
+</html>
+
+<!-- -->

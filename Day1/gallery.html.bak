@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script>
+	// 한줄 주석
+	
+	/* 여러 줄 주석 
+	script라는 이 영역은 프로그래밍 작성 영역이므로 html과는 차원이 틀리다.
+	따라서 대소문자나 정확하지 않은 문법은 모두 에러로 간주*/
+	
+	// 개발자가 next 함수를 정의함!!
+	
+	/* 특정 영역을 브레이스로 감싸고, 그 감싼 영역에 이름을 붙인
+	단위를 함수라 하며, 함수는 호출해야 작동한다!! */
+	function next(){																		
+		// alert("나 불렀어?");
+		
+		// 문서내의 이미지를 다른 것으로 바꾸길 원한다
+
+		document.getElementById("photo").src="../images/2.jpg";											// 문서내의 포토라는 요소를 src 경로를 통해 얻어온다
+		document.getElementById("photo").src="../images/3.jpg";
+		document.getElementById("photo").src="../images/4.jpg";
+		document.getElementById("photo").src="../images/5.jpg";
+		document.getElementById("photo").src="../images/1.jpg";
+
+		}
+	</script>																				<!-- function과 같이 파란색으로 나타나는 것이 예약어 -->
+</head>
+<body>																						<!-- 바디는 디자인 영역 -->
+<img id="photo" src="../images/1.jpg">															<!-- 절대 위치는 쓰지 않는다. -->		
+																								<!-- 경로에서 "."은 현재 내가 있는 파일을 말한다. -->
+																								<!-- 경로에서 ".."은 현재 내가 있는 파일에서 한칸 상위 폴더이다. -->
+
+<input type="button" value="버튼" onClick="next()">			<!-- "버튼"이 들어간 button 생성, tag는 쌍따옴표 안이 아닌 밖에 설정 헤드영역 또는 바디영역-->
+
+
+</body>
+</html>
+
+<!-- -->

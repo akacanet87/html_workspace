@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>베네치아게임</title>
+
+
+<style>
+
+#wrapper{
+
+	width : 802px;
+	height : 766px;
+	margin : auto;
+	background : skyblue;
+
+}
+
+
+
+#stage{
+
+	width : 800px;
+	height : 600px;
+	background : #009933;
+	background-image : url("../images/background.jpg");
+	background-repeat : no-repeat;
+
+}
+
+
+
+#controller{
+
+	width : 800px;
+	height : 150px;
+	text-align : center;
+
+
+}
+
+
+
+#info{
+
+	width : 266px;
+	height : 160px;
+/*	background : gray;	*/
+	float : left;
+
+}
+
+
+
+#hp{
+
+	width : 264px;
+	height : 160px;
+	background : yellow;
+	float : left;
+
+}
+
+
+
+#point{
+
+	width : 264px;
+	height : 162px;
+	background : skyblue;
+	float : left;
+
+
+}
+
+
+#keyword{
+
+	width : 200px;
+	height : 70px;
+	background : #6666ff;
+	font-size : 35pt;
+
+	}
+
+
+
+
+</style>
+
+
+<script>
+
+var hp;
+var stage;
+var step=10;								//	몇 픽셀 씩 내려오게 할지를 결정하는 변수
+var st;									//	setTimeout 을 가리키는 변수
+var keyword;
+var jumsu=0;
+var limit=0;
+
+
+var floorArr = new Array(3);		//	층수 배열
+
+var word = [
+
+	"사랑","연애","직업","직장","취업","졸업","유학","연수","인턴","미생","정규직"
+
+];
+
+var wordArr = new Array(word.length);
+
+//	alert("wordArr 길이는 "+wordArr.length);
+
+
+
+function init(){
+
+	hp = document.getElementById("hp");
+	stage = document.getElementById("stage");
+	keyword = document.getElementById("keyword");
+	point = document.getElementById("point");
+
+	//alert("stage의 높이는 "+stage.style.height);
+
+	limit = parseInt(stage.style.height);
+	
+
+	createHp();							//	체력 생성 보여주기
+	createTag();						// 단어 생성 보여주기
+
+}
+
+
+//	테이블 생성
+function createHp(){
+
+	//	문서가 로드되면 hp를 표현하는 테이블을
+	//	3*4개로 구성하기
+	var table = document.createElement("table");
+
+	table.style.width="100%";
+	table.style.height=162+"px";
+	table.style.border="1px solid black";
+
+
+	for( var floor=0 ; floor<3 ; floor++ ){
+		
+		var tr = document.createElement("tr");		//	층을 생성하기 createElement가 안으로 들어와야 한다.
+																	//	밖에 생성해서 변수로만 사용할 경우
+																	//	방을 하나 주고 그 방의 키를 세개 주는 것과 같다
+
+		var hoArr = new Array(4);			//	호수 배열
+
+
+		for( var room = 0 ; room<4 ; room++){
+			
+			var td = document.createElement("td");	//	방을 생성하기 createElement가 안으로 들어와야 한다.
+																	//	밖에 생성해서 변수로만 사용할 경우
+																	//	방을 하나 주고 그 방의 키를 세개 주는 것과 같다
+		
+			//	테이블 조립하기
+			td.style.width="50px";
+			td.style.height="46px";
+			td.innerText="HP"+room;
+			tr.appendChild(td);
+			td.style.border="1px solid black";
+		
+			hoArr[room]=td;									//	hoArr에 td를 담겠다.
+
+		}
+
+		table.appendChild(tr);
+
+		floorArr[floor]=hoArr;									//	hoArr를 하나의 변수로 보고 floorArr에 담는다
+
+	}
+
+
+	//	hp div에 table 추가!!
+	hp.appendChild(table);
+
+}
+
+
+
+//	게임이 시작되면 단어들이 등장하되 점점 내려오게 (top값이 증가)
+function gameStart(){
+
+	drop();
+	
+	keyword.focus();
+
+}
+
+
+
+
+//	텍스트 내려오는 효과
+function drop(){
+
+	for( var a=0 ;	a<wordArr.length ; a++ ){
+
+		wordArr[a].style.top=parseInt(wordArr[a].style.top)+step+"px";
+
+	}
+
+	//	현재 내려오고 있는 단어가 limit를 넘어섰는지 조사!
+
+	if( parseInt(wordArr[1].style.top) >= limit){							//	top에 px가 붙어있으므루
+																						//	parseInt를 붙여 빼줘야 한다.
+		//alert("도달했네요!!");
+
+		floorArr[0][0].style.background = "#ffffff";
+		
+	}
+
+	var level = document.getElementById("speed").value;
+
+	st = setTimeout("drop()", level);
+
+}
+
+
+
+//	게임 일시정지
+function pause(){
+
+	clearTimeout(st);
+
+}
+
+
+
+function createTag(){
+
+	//	span 태그를 단어만큼 생성하여 stage에 부착하기
+	for( var a=0 ; a<word.length ; a++ ){
+
+		//	랜덤값 구하기 : 0~199 사이에서
+
+		var r = parseInt(Math.random()*200);											// 1 미만 0 이상의 난수
+	
+		var span = document.createElement("span");
+		span.style.position="relative";
+		span.style.left=30+(30*a)+"px";
+		span.style.top=-r+"px";
+		span.innerText=word[a];
+
+		stage.appendChild(span);
+
+		//	span은 지역변수이기 때문에 for문이 돌아간 후에는 접근할 수 없다.
+		//	따라서 전역으로 설정된 배열에 담아야 한다.
+		wordArr[a]=span;
+
+	}
+
+}
+
+
+//	여러 키보드 값 중 엔터키값에만 반응을 보이자
+function enter(){
+	
+	var key = event.keyCode;
+
+	if ( key == 13 ){
+
+		//	현재 존재하는 단어마다 입력한 값과 비교를 한다.
+		//	같으면 단어가 사라지면서 점수가 올라가도록
+		for( var a=0 ; a<wordArr.length ; a++ ){
+
+			if( wordArr[a].innerText == keyword.value){
+
+				//stage.removeChild(wordArr[a]);			//	appendChild 의 반대
+	
+				wordArr[a].innerText="";
+				keyword.value="";
+
+
+				//	기존 점수보다 10점 올리기
+
+				jumsu+=10;
+				score.value=jumsu;
+
+			}
+
+		}
+	
+	}
+
+}
+
+
+</script>
+
+</head>
+<body onLoad="init()">
+
+<div id="wrapper">
+
+	<div id="stage" style="height:600px">
+	
+	</div>
+
+	<div id="controller">
+		
+		<div id="info">
+
+			<select id="speed">
+
+				<option value="1200">1단계</option>
+				<option value="1000">2단계</option>
+				<option value="800">3단계</option>
+				<option value="600">4단계</option>
+				<option value="400">5단계</option>
+				
+			</select>
+
+			<input type="button" value="START" onClick="gameStart()">
+			<input type="button" value="PAUSE" onClick="pause()">
+			<input type="text" id="keyword" onKeyUp="enter()">
+
+
+		</div>
+		
+		<div id="hp">
+		</div>
+
+		<div id="point">
+
+			<input type="text" value="0" id="score">점
+
+		</div>
+
+	
+	</div>
+
+</div>
+
+</body>
+</html>
+
+<!-- -->

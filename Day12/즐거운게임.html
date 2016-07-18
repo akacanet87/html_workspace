@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>즐거운게임</title>
+
+<style>
+
+body{
+
+	margin : 0px;
+
+}
+
+#stage{
+
+	background-image : url("../images/space4.jpg");
+
+}
+
+</style>
+
+
+<script src="../lib/AllRound.js"></script>
+<script src="../lib/Bullet.js"></script>
+<script src="../lib/Flame.js"></script>
+<script src="../lib/Hero.js"></script>
+<script src="../lib/EUnit.js"></script>
+<script>
+
+var hero;
+var stage;
+var bgX=0;
+var flame;
+var enemyArray = new Array();
+
+window.addEventListener("load", function(){
+
+	init();
+
+
+
+});
+
+function init(){
+
+	//	alert("모니터의 크기는 "+screen.width);
+
+	stage=document.getElementById("stage");
+	stage.style.width=screen.width+"px";
+	stage.style.height=900+"px";
+
+	//	배경흐름 처리
+	bgEffect();
+
+	hero = new Hero( stage, 80, 50, 20, 450, "../images/spaceship7.png");
+
+	hero.init();
+
+	flame = new Flame( stage, hero.x, hero.y, hero.velX, hero.velY );
+
+	flame.init();
+
+	//	적군 등장
+
+	for( var a=0 ; a<10 ; a++ ){
+	
+		var eunit = new EUnit( stage, 80, 50, screen.width-100, 50+a*70, 0, 0, "../images/enemyship.png");
+
+		enemyArray[a]=eunit;		
+
+		eunit.init();
+
+	}
+
+}
+
+//	우주선에 대한 상하좌우 이벤트 처리
+window.addEventListener("keydown", function(){
+
+	var key = event.keyCode;
+
+	switch(key){
+
+		case 32 :
+
+			fire();
+			
+			break;
+
+		case 37 :
+			
+			hero.velX=-5;
+
+			break;
+
+		case 38 :
+			
+			hero.velY=-5;
+
+			break;
+
+		case 39 :
+
+			hero.velX=5;
+
+			break;
+
+		case 40 :
+
+			hero.velY=5;
+			
+			break;
+
+	}
+
+
+
+});
+
+window.addEventListener("keyup", function(){
+
+	var key = event.keyCode;
+
+	if( key==37 || key==39 ){ 
+	
+		hero.velX=0;
+
+	}
+
+	if( key==38 || key==40 ){
+
+		hero.velY=0;
+
+	//}
+
+	//if( key == 32){
+
+		
+
+	}
+
+});
+
+function fire(){
+
+	var bullet = new Bullet( stage, hero.x, hero.y );
+
+	bullet.init();
+
+}
+
+function bgEffect(){
+
+	bgX-=2;
+
+	stage.style.backgroundPosition=bgX+"px 0px";
+
+	setTimeout("bgEffect()", 100);
+
+}
+
+</script>
+
+</head>
+<body>
+
+<div id="stage">
+</div>
+
+</body>
+</html>
+
+<!-- -->

@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>미로게임</title>
+
+<style>
+
+body{
+
+	margin : 0px;
+
+}
+
+#stage{
+
+	background : silver;
+
+}
+
+</style>
+
+
+<script src="../lib/AllRound.js"></script>
+<script src="../lib/Hero.js"></script>
+<script src="../lib/Maze.js"></script>
+<script>
+
+var maze;
+var stage;
+var hero;
+
+
+window.addEventListener("load", function(){
+
+	init();
+
+});
+
+function init(){
+
+	stage = document.getElementById("stage");
+
+	stage.style.width=screen.width-250+"px";
+	stage.style.height=900+"px";
+	stage.style.backgroundImage="url('../images/background.jpg')"
+
+	createMaze();
+
+	
+}
+
+function createMaze(){
+
+	var w=20;
+
+	for ( var a=0 ; a<40 ; a++ ){
+
+		for ( var b=0 ; b<50 ; b++ ){
+
+			maze = new Maze(stage, w, w, b*w, a*w);
+
+			maze.init();
+
+		}
+
+	}
+
+	/*
+	
+	var countY=0;
+	var countX=0;
+	var w=20;			//	가로 크기
+
+	for ( var c=0 ; c<3000 ; c++ ){
+
+		if ( c%100==0){
+
+			countY++;
+			countX=0;
+
+		}
+
+		maze = new Maze(stage, w, w, countX*w, countY*w);
+
+		maze.init();
+		countX++;
+
+	}
+
+
+	*/
+
+
+	hero = new Hero(stage, w, w, 100, 100, "../images/a_bird.png");
+
+	hero.init();
+
+}
+
+
+window.addEventListener("keydown", function(){
+
+	var key = event.keyCode;
+
+	switch(key){
+
+		case 37 :
+			
+			hero.velX=-1;
+
+			break;
+
+		case 38 :
+
+			hero.velY=-1;
+
+			break;
+
+		case 39 :
+
+			hero.velX=1;
+
+			break;
+
+		case 40 :
+
+			hero.velY=1;
+
+			break;
+
+	}
+
+});
+
+
+window.addEventListener("keyup", function(){
+
+	var key = event.keyCode;
+
+	if( key == 37 || key == 39 ){
+
+		hero.velX=0;
+
+	}
+
+	if( key == 38 || key == 40 ){
+
+		hero.velY=0;
+
+	}
+
+});
+
+
+
+</script>
+
+</head>
+<body>
+
+<div id="stage"></div>
+
+</body>
+</html>
+
+<!-- -->

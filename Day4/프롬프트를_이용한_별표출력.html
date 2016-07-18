@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>프롬프트를 이용한 별표출력</title>
+</head>
+
+<script>
+
+
+document.write("##### 프롬프트를 이용한 별표출력 #####<br><br>");
+
+var result=prompt("원하시는 별의 갯수를 입력하세요");
+
+for( a=1 ; a<=result ; a++ ){
+
+	document.write("★");
+
+}
+
+
+
+	document.write("<br><br><br><br><br>");
+
+
+
+document.write("##### 이중for문 #####<br><br>");
+
+var d=result;
+for( a=1 ; a<=result ; a++){
+
+	 
+	for( var c=d ; c>=1 ; c-- ){
+
+		document.write("&nbsp;");
+	
+	}
+
+	for( var b=1 ; b<=a ; b++){
+
+		document.write("★");
+
+	}
+	d--;
+	document.write("<br>");
+
+}
+
+</script>
+
+<body>
+
+</body>
+</html>
+
+<!-- -->

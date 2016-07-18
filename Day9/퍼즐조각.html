@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>퍼즐조각</title>
+
+
+<style>
+</style>
+
+
+<script src="../lib/Puzzle.js"></script>
+<script>
+
+var stage;
+var bg=["red","orange","yellow","green","blue","navy","purple"];
+
+//	프로그램이 가동되자 마자 백그라운드가 노란색인 div를 생성 및 추가하기
+window.addEventListener("load", function(){
+
+	stage = document.createElement("div");
+	stage.style.width=800+"px";
+	stage.style.height=800+"px";
+	stage.style.margin="auto";
+
+	stage.style.background="url('../images/amantha.jpg')";
+
+	document.body.appendChild(stage);
+
+	createBox();
+
+});
+
+
+
+
+function createBox(){
+	
+	for( var a=1 ; a<=64 ; a++ ){
+
+		var r= parseInt(Math.random()*bg.length);
+
+		var puzzle = new Puzzle( stage, 100, 100, bg[r] );
+
+		puzzle.init();
+
+	}
+
+
+}
+
+
+</script>
+
+
+
+</head>
+<body></body>
+</html>
+
+<!-- -->

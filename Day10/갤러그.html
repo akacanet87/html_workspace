@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>갤러그</title>
+
+<style>
+
+body{
+
+	margin : 0px;
+
+}
+
+#stage{
+
+	width : 1000px;
+	height : 800px;
+	background-Image : url("../images/gallerxy/bg.png");
+
+}
+
+
+</style>
+
+<script src="../lib/Hero.js"></script>
+<script src="../lib/Enemy.js"></script>
+<script src="../lib/Bullet2.js"></script>
+<script src="../lib/AllRound.js"></script>
+
+<script>
+
+
+var hero;
+var stage;
+var bgY=0;
+
+var kingImg = [
+
+	"../images/gallerxy/blue_king.png",
+	"../images/gallerxy/green_king.png"
+
+];
+
+
+var enemyImg = [
+
+	"../images/gallerxy/enermy1.png",
+	"../images/gallerxy/enermy2.png"
+
+];
+
+
+var kingArray = new Array();
+var enemyArray = new Array();
+
+window.addEventListener("load", function(){
+
+	stage=document.getElementById("stage");
+
+	bgEffect();
+
+	//	주인공 등장
+	hero = new Hero(stage, 50, 50, 475, 700);
+
+	hero.init();
+
+	//	빨간 적군 등장
+
+	var enemyY=1;
+	var enemyX=1;
+	var enemyIndex=0;
+	var kingEnemyIndex=0;
+
+	for( var k=0 ; k<10 ; k++){
+
+		if( k>=5 && k%5==0 ){
+
+			kingEnemyIndex++;
+
+		}
+
+		var kingEnemy = new Enemy(stage, 60, 60, 25+(enemyX*70), 20, kingImg[kingEnemyIndex]);
+
+		kingEnemy.init();
+
+		enemyX++;
+
+		//	kingArray.push(kingEnemy);
+
+		kingArray[k]=kingEnemy;
+
+		console.log("메모리에 올라온 대왕파리 수는 "+kingArray.length);
+
+	}
+	
+
+
+	for( var a=0 ; a<90 ; a++ ){
+
+		if( a%15==0 ){
+
+			enemyY++;
+
+			enemyX=1;
+
+		}
+
+		if(a>=45 && a%45==0){
+
+			enemyIndex++;
+
+		}
+
+		var enemy = new Enemy(stage, 40, 40, 20+(enemyX*50), enemyY*50, enemyImg[enemyIndex]);
+
+		enemy.init();
+
+		enemyX++;
+
+		//	enemyArray.push(enemy);				위험함
+
+		enemyArray[a]=enemy;
+
+		console.log("메모리에 올라온 똥파리 수는 "+enemyArray.length);
+
+	}
+
+
+});
+
+//	키보드 입력 처리!!
+window.addEventListener("keydown", function(){
+
+	var key = event.keyCode;		//	입력한 아스키코드값
+
+	switch(key){					// 소괄호에 조건 판단 대상이 되는 데이터값이 온다
+
+		case 37 :
+				
+			hero.velX = -5;
+
+			break;
+
+		case 39 :
+				
+			hero.velX = 5;
+
+			break;
+
+		case 32 :
+
+			fire();
+
+			break;
+
+	}
+
+/*
+	if(key==37){				//	좌측이동
+
+		alert("왼쪽");
+
+	}else if(key==39){		//	우측이동
+
+		alert("오른쪽");
+
+	}else if(key==32){		//	총알 발사
+
+		alert("총알발사");
+
+	}
+
+*/
+
+});
+
+window.addEventListener("keyup", function(){
+	
+	var key = event.keyCode;
+	
+	if(key!=32){
+
+		hero.velX=0;
+
+	}
+
+});
+
+function bgEffect(){
+
+	bgY+=2;
+
+	stage.style.backgroundPosition="0px "+bgY+"px";
+
+	setTimeout("bgEffect()", 5);
+
+}
+
+//	총알 발사 함수 정의
+function fire(){
+
+	//	스페이스바 누를 때마다 총알 인스턴스 생성
+	//	인스턴스란 객체지향 언어에서 클래스라는 거푸집으로부터
+	//	메모리에 생성되는 객체의 한 단위
+//	var bullet1 = new Bullet2( stage, 10, 20, hero.x-5, hero.y-5 );
+	var bullet2 = new Bullet2( stage, 10, 20, hero.x+8, hero.y-5 );
+	var bullet3 = new Bullet2( stage, 10, 20, hero.x+32, hero.y-5 );
+//	var bullet4 = new Bullet2( stage, 10, 20, hero.x+45, hero.y-5 );
+
+//	var bullet5 = new Bullet2( stage, 10, 20, hero.x+20, hero.y-5 );
+
+//	bullet1.init();
+	bullet2.init();
+	bullet3.init();
+//	bullet4.init();
+//	bullet1.velY=5;
+	bullet2.velY=5;
+	bullet3.velY=5;
+//	bullet4.velY=5;
+//	bullet5.init();
+//	bullet5.velY=5;
+
+}
+
+
+
+//	파리 배열 테스트
+var testCount=0;
+
+function killEnemy(){
+	
+	stage.removeChild(enemyArray[testCount].img);
+	testCount++;
+
+}
+
+
+</script>
+
+
+</head>
+<body>
+
+<div id="stage"></div>
+
+</body>
+</html>
+
+<!-- -->

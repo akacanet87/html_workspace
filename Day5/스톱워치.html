@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>스톱워치</title>
+
+<style>
+
+#window{
+
+	width : 500px;
+	height : 100px;
+	font-size : 40pt;
+	font-weight : bold;
+	color : red;
+	background : yellow;
+	text-align : center;			/* 내용물에 대한 우측 정렬	*/
+	margin : auto;
+
+}
+#window input{
+
+	width : 100px;
+	height : 75px;
+	margin : auto;
+
+}
+
+
+</style>
+
+
+<script>
+
+var ms=0;
+var ss=0;		// 초를 담는 전역변수, 누적되어야 하므로 전역변수로 설정
+var mm;
+var hh;
+var st;
+
+
+//문서가 모두 읽혀졌으므로, 아래의 txt요소를 접근할 수 있는 시점
+function init(){
+
+	document.getElementById("txt").value=0;
+
+}
+
+
+
+//txt의 기존값을 증가값으로 대입
+function start(){
+
+	ms++;
+
+	if(ms==100){
+
+		ms=0;
+
+	}else{
+
+		ms=ms;
+	
+	}
+
+
+	document.getElementById("txt").value=ss;
+	st=setTimeout("start()", 1000);
+	//버튼을 못누르게 비활성화 시키기
+	document.getElementById("bt_start").disabled=true;
+
+}
+
+
+
+function stop(){
+
+	clearTimeout(st);									// 기존 셋 타임 아웃에 의한 자동 호출을 중지시킴
+	document.getElementById("bt_start").disabled=false;
+	//비활성화 할래? 아니오 -->> 활성화
+}
+
+
+
+
+
+
+</script>
+
+
+</head>
+<body onLoad="init()">
+
+<div id="window" width="100%">
+
+	<input type="text" id="box_ms">						<!-- input type에 시스템 용어가 아닌 용어가 들어가면 text로 전환 -->
+	<input type="text" id="box_ss">	
+	<input type="text" id="box_mm">	
+	<input type="text" id="box_hh">	
+
+	<div id="buttons">
+		<input type="button" value="시작" onClick="start()" id="bt_start">
+		<input type="button" value="정지" onClick="stop()" id="bt_stop">
+		<input type="button" value="리셋" onClick="reset()" id="bt_reset">
+	</div>
+
+</div>
+
+
+</body>
+</html>
+
+<!-- -->

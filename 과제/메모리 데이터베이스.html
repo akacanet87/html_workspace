@@ -1,0 +1,433 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>메모리 데이터베이스</title>
+	<style>
+		#maindiv{
+			width:650px;
+			height:600px;
+			margin:auto;
+		}
+
+		#menudiv{
+			width:150px;
+			height:600px;
+			background:#ffff99;
+			float:left;
+		}
+
+		#viewdiv{
+			width:500px;
+			height:600px;
+			background:#00cc99;
+			float:left;
+		}
+	</style>
+	
+	<script>
+	/*
+	검색기능 : 아이디 검색 -> 검색어 입력, 버튼으로 해당 되는 사람만의 로우가 나오도록
+	숙제 : column에 /번호 /아이디 /패스워드 /이름 /성금
+	마지막 row는 합계		
+	*/
+	var regi_bt;	//등록버튼 변수
+	var id_text;	//아이디 텍스트 박스 변수
+	var pw_text;	//패스워드 텍스트 박스 변수
+	var name_text;	//이름 텍스트 박스 변수
+	var money_text;	//성금 텍스트 박스 변수
+	
+	var info_arr;				//입력 데이터 배열
+	var members = new Array();	//맴버 데이터 배열
+	var member_x=0;				//members 인덱스 변수
+	
+	var total;					//총 성금 변수
+	
+	var menudiv;			//왼쪽 menudiv 변수
+	var viewdiv;			//오른쪽 viewdiv 변수
+	var table;				//데이터 테이블 변수
+
+	var search_text;		//검색 텍스트 박스 변수
+	var search_bt;			//검색 버튼 변수
+	var select_op;			//셀렉트 박스 변수
+	
+	
+		window.addEventListener("load", function(){
+			//변수 초기화 부분
+			menudiv = document.getElementById("menudiv");
+			
+			regi_bt = document.getElementById("regi_bt");
+			id_text = document.getElementById("id_textbox");
+			pw_text = document.getElementById("pw_textbox");
+			name_text = document.getElementById("name_textbox");
+			money_text = document.getElementById("money_textbox");
+			
+			search_text = document.getElementById("search_text");
+			search_bt = document.getElementById("search_bt");
+			select_op = document.getElementById("select_op");
+			
+			createList();		//viewdiv 초기화
+
+			regi_bt.addEventListener("click", function(){//등록 버튼 눌렀을 때 조건을 부여
+				if(id_text.value==""){		//아이디 입력 여부
+					alert("아이디를 입력해 주세요!");
+					id_text.focus();
+					return;
+				}	
+				else if ( !pw_text.value){	//비밀번호 입력 여부
+					alert("비밀번호를 입력해 주세요!");
+					pw_text.focus();
+					return;
+				}
+				else if ( !name_text.value){	//이름 입력 여부
+					alert("이름을 입력해 주세요!");
+					name_text.focus();
+					return;
+				}
+				else if ( !money_text.value){	//성금 입력 여부
+					alert("성금을 입력해 주세요!");
+					money_text.focus();
+					return;
+				}
+				
+				else {
+					var return_val = numberCheck();	//numberCheck함수 리턴값 입력
+					
+					//성금 입력란에 숫자만 입력 했는지 여부
+					if(!return_val){		//숫자만 입력 안했을 시
+						alert("성금은 숫자만 입력할 수 있습니다!");
+						money_text.value="";
+						money_text.focus();
+						return;
+					}
+					else if(return_val){	//숫자만 입력했을 시 info_arr에 입력
+					
+						info_arr = new Array(5);
+						info_arr[0] = members.length+1;
+						info_arr[1] = id_text.value;
+						info_arr[2] = pw_text.value;
+						info_arr[3] = name_text.value;
+						info_arr[4] = money_text.value;
+	
+						members.push(info_arr);		//members배열에 info_arr입력
+						
+						
+						for(var i=0; i<members.length; i++){	//데이터 디버깅 용 반복문
+							console.log(members[i][0]+"번째 정보");
+							console.log(members[i][1]+"//"+members[i][2]+"//"+members[i][3]+"//"+members[i][4]);	
+						}
+						//alert(members.length+"번째 가입을 축하드립니다");
+						
+						loadList();		//데이터 출력
+						Total_money();	//총 성금 출력
+						Textbox_init();	//menudiv의 텍스트 박스 value 초기화
+						
+					}
+				}
+			});
+			
+			search_bt.addEventListener("click", function(){	//검색 버튼 클릭 시 Search함수 실행
+				Search();
+			});
+		});
+		
+		function createList(){		////viewdiv 초기화 함수
+			
+			viewdiv = document.getElementById("viewdiv");
+
+			table = document.createElement("table");
+			table.style.border="3px solid #D9094D";
+			table.style.width=450+"px";
+			table.align="center";
+			
+			var top_tr = document.createElement("tr");			
+			top_tr.style.fontWeight="bold";		
+			top_tr.align="center";
+			
+			var no_td = document.createElement("td");
+			no_td.style="border-bottom:1px solid #FFFFFF";
+			no_td.style.width="150px";
+						
+			var id_td = document.createElement("td");
+			id_td.style="border-bottom:1px solid #FFFFFF";
+			id_td.style.width="150px";
+			
+			
+			var pw_td = document.createElement("td");
+			pw_td.style="border-bottom:1px solid #FFFFFF";
+			pw_td.style.width="150px";
+						
+			var name_td = document.createElement("td");
+			name_td.style="border-bottom:1px solid #FFFFFF";
+			name_td.style.width="150px";
+						
+			var money_td = document.createElement("td");
+			money_td.style="border-bottom:1px solid #FFFFFF";
+			money_td.style.width="150px";
+			
+
+			no_td.innerText="번호";
+			id_td.innerText="ID";
+			pw_td.innerText="PW";
+			name_td.innerText="이름";
+			money_td.innerText="성금";
+
+			top_tr.appendChild(no_td);
+			top_tr.appendChild(id_td);
+			top_tr.appendChild(pw_td);
+			top_tr.appendChild(name_td);
+			top_tr.appendChild(money_td);
+			
+			
+			table.appendChild(top_tr);
+
+			viewdiv.appendChild(table);
+		}
+		
+		function Textbox_init(){	//menudiv의 텍스트 박스 초기화 함수
+			
+			id_text.value="";
+			pw_text.value="";
+			name_text.value="";
+			money_text.value="";
+			
+		}
+		
+		function loadList(){		//members 배열의 데이터를 보여주는 함수
+			Setting();
+
+			for (var i=members.length-1; i>=0; i--){
+				var tr = document.createElement("tr");
+				tr.style.border="1px solid #FFFFFF";
+				
+				table.appendChild(tr);
+				viewdiv.appendChild(table);
+				
+				var td1 = document.createElement("td");
+				td1.style="border-bottom:1px solid #FFFFFF";
+				var td2 = document.createElement("td");
+				td2.style="border-bottom:1px solid #FFFFFF";
+				var td3= document.createElement("td");
+				td3.style="border-bottom:1px solid #FFFFFF";
+				var td4= document.createElement("td");
+				td4.style="border-bottom:1px solid #FFFFFF";
+				var td5= document.createElement("td");
+				td5.style="border-bottom:1px solid #FFFFFF";
+				
+				td1.innerText=members[i][0];
+				td2.innerText=members[i][1];
+				td3.innerText=members[i][2];
+				td4.innerText=members[i][3];
+				td5.innerText=members[i][4];
+
+				tr.appendChild(td1);
+				tr.appendChild(td2);
+				tr.appendChild(td3);
+				tr.appendChild(td4);
+				tr.appendChild(td5);
+
+			}
+		}
+
+		function Setting(){		//새로운 맴버 들어올 때마다 viewdiv 초기화 및 createList 함수를 load
+			viewdiv.removeChild(table);
+			createList();
+		}
+		
+		function Total_money(){			//총 성금 계산 및 테이블에 붙여주기
+			total=0;
+			
+			var money_tr = document.createElement("tr");
+			money_tr.style.border="1px solid #FFFFFF";
+			
+			var money_td = document.createElement("td");
+			
+			
+			money_td.style="border-bottom:1px solid #FFFFFF";
+			money_td.setAttribute('colspan', '5');	//총 성금 출력부 td 병합
+			
+			money_td.style="text-align:center";
+			
+			for(var i=0; i<members.length; i++){	//성금 합산을 위한 반복문
+				console.log(i+"의 성금 : "+parseInt(members[i][4]));
+				total = total + parseInt(members[i][4]);
+			}
+			console.log("총 성금 : " + total);
+			money_td.innerText="총 성금 : " + total+" 원";
+			
+			money_tr.appendChild(money_td);
+			table.appendChild(money_tr);
+		}
+		
+		function Search(){		//검색 함수
+			
+			var search_tr = document.createElement("tr");
+			var search_td1 = document.createElement("td");
+			var search_td2 = document.createElement("td");
+			var search_td3 = document.createElement("td");
+			var search_td4 = document.createElement("td");
+			var search_td5 = document.createElement("td");
+			
+			if(select_op.value=="all"){	//전체 목록 보기
+				
+				Setting();
+				loadList();
+				Total_money();
+			}
+			
+			else if(select_op.value=="num"){	//번호로 검색 시
+				
+				Setting();						
+				for(var i=0; i<members.length; i++){		//검색값과 일치하는 데이터 출력
+					if(members[i][0] == search_text.value){
+						search_td1.innerText = members[i][0];
+						search_td2.innerText = members[i][1];
+						search_td3.innerText = members[i][2];
+						search_td4.innerText = members[i][3];
+						search_td5.innerText = members[i][4];
+						
+						search_tr.appendChild(search_td1);
+						search_tr.appendChild(search_td2);
+						search_tr.appendChild(search_td3);
+						search_tr.appendChild(search_td4);
+						search_tr.appendChild(search_td5);
+					}
+					else{								//일치하는 데이터가 없을 시 전체 목록 띄워주기
+						alert("정보가 없습니다.");
+						loadList();
+						Total_money();
+					}
+				}
+				table.appendChild(search_tr);
+				
+			}
+			else if(select_op.value=="id"){				//아이디로 검색시 
+				
+				Setting();
+				for(var i=0; i<members.length; i++){		//검색값과 일치하는 데이터 출력
+					if(members[i][1] == search_text.value){
+						
+						search_td1.innerText = members[i][0];
+						search_td2.innerText = members[i][1];
+						search_td3.innerText = members[i][2];
+						search_td4.innerText = members[i][3];
+						search_td5.innerText = members[i][4];
+						
+						search_tr.appendChild(search_td1);
+						search_tr.appendChild(search_td2);
+						search_tr.appendChild(search_td3);
+						search_tr.appendChild(search_td4);
+						search_tr.appendChild(search_td5);
+					}
+					else{									//일치하는 데이터가 없을 시 전체 목록 띄워주기
+						alert("정보가 없습니다.");
+						loadList();
+						Total_money();
+					}
+				}
+				table.appendChild(search_tr);
+			}
+			else if(select_op.value=="name"){				//이름으로 검색 시
+				
+				Setting();
+				for(var i=0; i<members.length; i++){		//검색값과 일치하는 데이터 출력
+					if(members[i][3] == search_text.value){
+						search_td1.innerText = members[i][0];
+						search_td2.innerText = members[i][1];
+						search_td3.innerText = members[i][2];
+						search_td4.innerText = members[i][3];
+						search_td5.innerText = members[i][4];
+						
+						search_tr.appendChild(search_td1);
+						search_tr.appendChild(search_td2);
+						search_tr.appendChild(search_td3);
+						search_tr.appendChild(search_td4);
+						search_tr.appendChild(search_td5);
+					}
+					else{									//일치하는 데이터가 없을 시 전체 목록 띄워주기
+						alert("정보가 없습니다.");
+						loadList();
+						Total_money();
+					}
+				}
+				table.appendChild(search_tr);
+			}
+			search_text.value="";
+		}
+		
+		function numberCheck() {		//성금 입력란에 숫자만 입력 했는지 여부를 확인하는 함수
+			var temp = money_text.value;
+			if(isNaN(temp) == true) {
+			 	return false;
+			} else {
+				return true;
+			}
+		}
+	</script>
+
+
+</head>
+<body>
+<div id="maindiv">
+	<div id="menudiv" ><br>
+		<table align="center">
+			<tr>
+				<td align="right">
+					ID
+				</td>
+				<td>
+					<input id="id_textbox" type="text" value="" size=7 maxlength="12">
+				</td>
+			</tr>
+			<tr>
+				<td align="right">
+					PW		
+				</td>
+				<td>
+					<input id="pw_textbox" type="password" value="" size=7 maxlength="8">
+				</td>
+			</tr>
+			<tr>
+				<td align="right">
+					이름		
+				</td>
+				<td>
+					<input id="name_textbox" type="text" value="" size=7 maxlength="5">
+				</td>
+			</tr>
+			<tr>
+				<td align="right">
+					성금		
+				</td>
+				<td>
+					<input id="money_textbox" type="text" value="" size=7 maxlength="8">
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center">
+					<input id="regi_bt" type="button" style="width:100" value="등록" >		
+				</td>
+			</tr>
+		</table> 
+	</div>
+	<div id="viewdiv"><br>
+		
+		<table align="center">
+			<tr>
+				<td>
+					<select id="select_op">
+						<option value="all">전체 목록 보기</option>
+						<option value="num">번호</option>
+						<option value="id">ID</option>
+						<option value="name">이름</option>
+					</select>
+					<input id="search_text" type="text" value="" size=10 maxlength="12">
+					<input id="search_bt" type="button" value="검색">
+				</td>
+			</tr>
+		</table>
+		<p>		
+	</div>
+</div>
+</body>
+</html>

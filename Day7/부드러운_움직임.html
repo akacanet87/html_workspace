@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>부드러운_움직임</title>
+
+<style>/*///////////////////////////////////////////////////////////////////*/
+
+
+#wrapper{
+
+	width : 100%;
+	height : 1000px;
+
+}
+
+
+#a_bird{
+
+	position : absolute;
+	left : 0px;
+	top : 200px;
+	width : 150px;
+
+}
+
+</style>
+
+
+
+
+<script>/*///////////////////////////////////////////////////////////////////*/
+
+var a_bird;
+var targetX = 0;
+var targetY = 0;
+var rateNum = 0.9;
+var pt_x = 0;
+var pt_y = 0;
+var buf = 0;
+
+
+function init(){
+
+	a_bird = document.getElementById("a_bird");
+
+}
+
+function move(){
+
+//	alert(parseInt(a_bird.style.left));
+	
+	a_bird.style.left = targetX - rateNum*(targetX  - parseInt(a_bird.style.left)) +"px";
+	a_bird.style.top = targetY - rateNum*(targetY  - parseInt(a_bird.style.top)) +"px";
+
+	//	목표지점 - 비율계수 * (목표지점 - 나의위치);	
+
+	buf = setTimeout("move()", 20);
+
+	console.log( a_bird.style.left+", "+a_bird.style.top );
+
+}
+
+
+function move1(){
+
+	clearTimeout(buf);
+
+	targetX = event.clientX-75;
+	targetY = event.clientY-75;
+	
+	move();
+
+
+
+}
+
+
+</script>
+
+
+</head>
+<body onLoad="init()" onMouseMove="move1()">
+
+
+
+<div id="wrapper">
+
+	<img src="../images/a_bird.png" id="a_bird" style="position : absolute ; left : 0px ; top : 200px">
+
+</div>
+
+</body>
+</html>
+
+<!-- -->

@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>라이트효과</title>
+
+<script>
+
+var color=["red","orange","yellow","green","blue","navy","purple"];
+
+function setBg(){
+
+	var r = parseInt(Math.random()*color.length);
+	
+	document.body.style.background=color[r];
+
+	setTimeout("setBg()", 300);
+
+}
+
+
+</script>
+
+</head>
+<body>
+
+<input type="button" value="시작" onClick="setBg()">
+
+</body>
+</html>
+
+<!-- -->
